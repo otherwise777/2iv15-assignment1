@@ -12,13 +12,13 @@
 
  ************************************************************************/
 
-#if defined(HAVE_CONFIG_H)
+// #if defined(HAVE_CONFIG_H)
 #  include "config.h"
-#elif defined(_MSC_VER)
-#  include "config-vc.h"
-#elif defined(__APPLE__)
-#  include "config-osx.h"
-#endif
+// #elif defined(_MSC_VER)
+// #  include "config-vc.h"
+// #elif defined(__APPLE__)
+// #  include "config-osx.h"
+// #endif
 
 #include <cstdlib>
 #include <cmath>
