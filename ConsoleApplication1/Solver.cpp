@@ -9,10 +9,8 @@ void simulation_step( std::vector<Particle*> pVector, float dt )
 	
 	for(i=0; i<size; i++)
 	{
-		//gravity
-		//pVector[i]->m_Position += Vec2f(0.0, -0.000981);
 		pVector[i]->m_Position += dt*pVector[i]->m_Velocity;
-		pVector[i]->m_Velocity = DAMP*pVector[i]->m_Velocity + Vec2f(RAND,RAND) * 0.005;
+		//pVector[i]->m_Velocity = DAMP*pVector[i]->m_Velocity + Vec2f(RAND,RAND) * 0.005;
 	}
 
 }

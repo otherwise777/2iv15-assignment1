@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 #include "Gravity.h"
-#include <algorithm>    // std::for_each
+#include <algorithm>
 
 #include <list>
 #include "Particle.h"
@@ -40,10 +40,6 @@ static int mouse_release[3];
 static int mouse_shiftclick[3];
 static int omx, omy, mx, my;
 static int hmx, hmy;
-
-Gravity * gravity1 = NULL;
-Gravity * gravity2 = NULL;
-Gravity * gravity3 = NULL;
 
 std::list<Gravity*> gravity;
 
@@ -103,7 +99,7 @@ static void init_system(void)
 
 	for(int i = 0; i < 3; i = i + 1)
 	{
-		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -0.2)));
+		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -((i*0.01) + 0.1))));
 	}
 
 	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
@@ -157,9 +153,9 @@ static void draw_particles ( void )
 {
 	int size = pVector.size();
 
-	for(int ii=0; ii< size; ii++)
+	for(int i=0; i< size; i++)
 	{
-		pVector[ii]->draw();
+		pVector[i]->draw();
 	}
 }
 
@@ -294,7 +290,14 @@ static void reshape_func ( int width, int height )
 
 static void idle_func ( void )
 {
-	if ( dsim ) simulation_step( pVector, dt );
+	if (dsim)
+	{
+		for_each(gravity.begin(), gravity.end(), [](Gravity* g)
+		{
+			g->apply();
+		});
+		simulation_step(pVector, dt);
+	}
 	else        {get_from_UI();remap_GUI();}
 
 	glutSetWindow ( win_id );

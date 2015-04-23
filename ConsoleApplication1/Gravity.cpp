@@ -10,11 +10,11 @@ void Gravity::draw()
 	glColor3f(1, 0, 0);
 	glVertex2f(m_p1->m_Position[0], m_p1->m_Position[1]);
 	glColor3f(1, 0, 0);
-	glVertex2f(m_p1 -> m_Position[0], m_p1 -> m_Position[1] + g[1]);
+	glVertex2f(m_p1 -> m_Position[0] + g[0], m_p1 -> m_Position[1] + g[1]);
 	glEnd();
 }
 
-void Gravity::step()
+void Gravity::apply()
 {
-
+	m_p1->m_Velocity += g*0.00001;
 }
