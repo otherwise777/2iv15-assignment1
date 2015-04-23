@@ -40,9 +40,10 @@ static int mouse_shiftclick[3];
 static int omx, omy, mx, my;
 static int hmx, hmy;
 
-Gravity * gravity = NULL;
+Gravity * gravity1 = NULL;
 Gravity * gravity2 = NULL;
 Gravity * gravity3 = NULL;
+std::list<Gravity> gravity;
 static SpringForce * delete_this_dummy_spring = NULL;
 static RodConstraint * delete_this_dummy_rod = NULL;
 static CircularWireConstraint * delete_this_dummy_wire = NULL;
@@ -96,7 +97,7 @@ static void init_system(void)
 	
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
-	gravity = new Gravity(pVector[0], Vec2f(0.0, -0.2));
+	gravity1 = new Gravity(pVector[0], Vec2f(0.0, -0.2));
 	gravity2 = new Gravity(pVector[1], Vec2f(0.0, -0.2));
 	gravity3 = new Gravity(pVector[2], Vec2f(0.0, -0.2));
 
@@ -165,9 +166,9 @@ static void draw_forces ( void )
 		delete_this_dummy_spring->draw();
 	}
 
-	if (gravity)
+	if (gravity1)
 	{
-		gravity->draw();
+		gravity1->draw();
 	}
 
 	if (gravity2)
