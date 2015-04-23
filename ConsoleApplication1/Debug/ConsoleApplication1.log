@@ -1,0 +1,23 @@
+﻿Build started 23-4-2015 14:46:39.
+     1>Project "D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude/ /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TinkerToy.cpp
+         TinkerToy.cpp
+     1>d:\documents\technische_universiteit_eindhoven\masterprogram\simulation_in_computer_graphics\tinkertoy\consoleapplication1\consoleapplication1\include\gfx\vec2.h(96): warning C4005: '_MSC_VER' : macro redefinition
+                 command-line arguments :  see previous definition of '_MSC_VER'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib/ glut32.lib libpng16.lib zlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\CircularWireConstraint.obj
+         Debug\Gravity.obj
+         Debug\imageio.obj
+         Debug\linearSolver.obj
+         Debug\Particle.obj
+         Debug\RodConstraint.obj
+         Debug\Solver.obj
+         Debug\SpringForce.obj
+         Debug\TinkerToy.obj
+         ConsoleApplication1.vcxproj -> D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\Debug\ConsoleApplication1.exe
+     1>Done Building Project "D:\Documents\Technische_Universiteit_eindhoven\MasterProgram\Simulation_in_computer_graphics\TinkerToy\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.75
