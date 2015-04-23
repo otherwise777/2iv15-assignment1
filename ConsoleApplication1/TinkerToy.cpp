@@ -2,6 +2,7 @@
 //
 #include <iostream>
 using namespace std;
+#include "Gravity.h"
 
 #include <list>
 #include "Particle.h"
@@ -39,6 +40,9 @@ static int mouse_shiftclick[3];
 static int omx, omy, mx, my;
 static int hmx, hmy;
 
+Gravity * gravity = NULL;
+Gravity * gravity2 = NULL;
+Gravity * gravity3 = NULL;
 static SpringForce * delete_this_dummy_spring = NULL;
 static RodConstraint * delete_this_dummy_rod = NULL;
 static CircularWireConstraint * delete_this_dummy_wire = NULL;
@@ -92,6 +96,10 @@ static void init_system(void)
 	
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
+	gravity = new Gravity(pVector[0], Vec2f(0.0, -0.2));
+	gravity2 = new Gravity(pVector[1], Vec2f(0.0, -0.2));
+	gravity3 = new Gravity(pVector[2], Vec2f(0.0, -0.2));
+
 	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
 	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], dist);
 	delete_this_dummy_wire = new CircularWireConstraint(pVector[0], center, dist);
@@ -153,7 +161,24 @@ static void draw_forces ( void )
 {
 	// change this to iteration over full set
 	if (delete_this_dummy_spring)
+	{
 		delete_this_dummy_spring->draw();
+	}
+
+	if (gravity)
+	{
+		gravity->draw();
+	}
+
+	if (gravity2)
+	{
+		gravity2->draw();
+	}
+
+	if (gravity3)
+	{
+		gravity3->draw();
+	}
 }
 
 static void draw_constraints ( void )
