@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 #include "Gravity.h"
+#include <algorithm>    // std::for_each
 
 #include <list>
 #include "Particle.h"
@@ -43,7 +44,9 @@ static int hmx, hmy;
 Gravity * gravity1 = NULL;
 Gravity * gravity2 = NULL;
 Gravity * gravity3 = NULL;
-std::list<Gravity> gravity;
+
+std::list<Gravity*> gravity;
+
 static SpringForce * delete_this_dummy_spring = NULL;
 static RodConstraint * delete_this_dummy_rod = NULL;
 static CircularWireConstraint * delete_this_dummy_wire = NULL;
@@ -97,9 +100,11 @@ static void init_system(void)
 	
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
-	gravity1 = new Gravity(pVector[0], Vec2f(0.0, -0.2));
-	gravity2 = new Gravity(pVector[1], Vec2f(0.0, -0.2));
-	gravity3 = new Gravity(pVector[2], Vec2f(0.0, -0.2));
+
+	for(int i = 0; i < 3; i = i + 1)
+	{
+		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -0.2)));
+	}
 
 	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
 	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], dist);
@@ -166,20 +171,11 @@ static void draw_forces ( void )
 		delete_this_dummy_spring->draw();
 	}
 
-	if (gravity1)
+	for_each(gravity.begin(), gravity.end(), [](Gravity* g)
 	{
-		gravity1->draw();
-	}
+		g->draw();
+	});
 
-	if (gravity2)
-	{
-		gravity2->draw();
-	}
-
-	if (gravity3)
-	{
-		gravity3->draw();
-	}
 }
 
 static void draw_constraints ( void )
