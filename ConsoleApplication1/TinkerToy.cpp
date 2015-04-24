@@ -16,7 +16,7 @@ using namespace std;
 #include <stdlib.h>
 #include <stdio.h>
 
-#if defined(HAVE_CONFIG_H)
+#if defined(_WIN32)
 #  include <glut.h>
 #elif defined(__APPLE__)
 #  include <GLUT/glut.h>
