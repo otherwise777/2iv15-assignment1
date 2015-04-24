@@ -48,8 +48,8 @@ static int omx, omy, mx, my;
 static int hmx, hmy;
 
 std::list<Gravity*> gravity;
+std::list<SpringForce*> springs;
 
-static SpringForce * delete_this_dummy_spring = NULL;
 static RodConstraint * delete_this_dummy_rod = NULL;
 static CircularWireConstraint * delete_this_dummy_wire = NULL;
 
@@ -68,10 +68,6 @@ static void free_data ( void )
 	if (delete_this_dummy_rod) {
 		delete delete_this_dummy_rod;
 		delete_this_dummy_rod = NULL;
-	}
-	if (delete_this_dummy_spring) {
-		delete delete_this_dummy_spring;
-		delete_this_dummy_spring = NULL;
 	}
 	if (delete_this_dummy_wire) {
 		delete delete_this_dummy_wire;
@@ -121,7 +117,9 @@ static void init_system(void)
 		*/
 	}
 
-	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
+	springs.push_back(new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0));
+	springs.push_back(new SpringForce(pVector[1], pVector[2], dist, 1.0, 1.0));
+
 	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], dist);
 	delete_this_dummy_wire = new CircularWireConstraint(pVector[0], center, dist);
 }
@@ -175,11 +173,11 @@ static void draw_particles ( void )
 
 static void draw_forces ( void )
 {
-	// change this to iteration over full set
-	if (delete_this_dummy_spring)
+	// change this to iteration over full 
+	for_each(springs.begin(), springs.end(), [](SpringForce* s)
 	{
-		delete_this_dummy_spring->draw();
-	}
+		s->draw();
+	});
 
 	for_each(gravity.begin(), gravity.end(), [](Gravity* g)
 	{
@@ -192,9 +190,13 @@ static void draw_constraints ( void )
 {
 	// change this to iteration over full set
 	if (delete_this_dummy_rod)
-		delete_this_dummy_rod->draw();
+	{
+		//delete_this_dummy_rod->draw();
+	}
 	if (delete_this_dummy_wire)
-		delete_this_dummy_wire->draw();
+	{
+		//delete_this_dummy_wire->draw();
+	}
 }
 
 /*
@@ -306,11 +308,16 @@ static void idle_func ( void )
 {
 	if (dsim)
 	{
-		delete_this_dummy_spring->apply();
+		for_each(springs.begin(), springs.end(), [](SpringForce* s)
+		{
+			s->apply();
+		});
+
 		for_each(gravity.begin(), gravity.end(), [](Gravity* g)
 		{
 			g->apply();
 		});
+
 		simulation_step(pVector, dt);
 	}
 	else        {get_from_UI();remap_GUI();}
