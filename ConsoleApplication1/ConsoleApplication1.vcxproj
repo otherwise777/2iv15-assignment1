@@ -31,9 +31,9 @@
     <ClInclude Include="SpringForce.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="glut32.dll" />
-    <None Include="libpng16.dll" />
-    <None Include="zlib1.dll" />
+    <None Include="..\Debug\glut32.dll" />
+    <None Include="..\Debug\libpng16.dll" />
+    <None Include="..\Debug\zlib1.dll" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B6AC0BF0-5FE1-416E-BB52-C2A31E5089CB}</ProjectGuid>

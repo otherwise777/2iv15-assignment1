@@ -16,5 +16,5 @@ void Gravity::draw()
 
 void Gravity::apply()
 {
-	m_p1->m_Velocity += g*0.00001;
+	m_p1->m_Velocity += g;
 }

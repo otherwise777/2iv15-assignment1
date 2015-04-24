@@ -4,8 +4,9 @@
 using namespace std;
 #include "Gravity.h"
 #include <algorithm>
-
 #include <list>
+#include <Windows.h>
+
 #include "Particle.h"
 #include "SpringForce.h"
 #include "RodConstraint.h"
@@ -52,6 +53,8 @@ static SpringForce * delete_this_dummy_spring = NULL;
 static RodConstraint * delete_this_dummy_rod = NULL;
 static CircularWireConstraint * delete_this_dummy_wire = NULL;
 
+long long level_elapsed_time = 0;
+long long level_start_time = 0;
 
 /*
 ----------------------------------------------------------------------
@@ -91,6 +94,8 @@ static void init_system(void)
 	const Vec2f center(0.0, 0.0);
 	const Vec2f offset(dist, 0.0);
 
+	level_start_time = timeGetTime();
+
 	// Create three particles, attach them to each other, then add a
 	// circular wire constraint to the first.
 
@@ -104,7 +109,7 @@ static void init_system(void)
 
 	for(int i = 0; i < 3; i = i + 1)
 	{
-		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -((i*0.01) + 0.1))));
+		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -0.2)));
 	}
 
 	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
@@ -131,24 +136,16 @@ static void pre_display ( void )
 static void post_display ( void )
 {
 	// Write frames if necessary.
-	if (dump_frames) {
-		const int FRAME_INTERVAL = 4;
-		if ((frame_number % FRAME_INTERVAL) == 0) {
-			const unsigned int w = glutGet(GLUT_WINDOW_WIDTH);
-			const unsigned int h = glutGet(GLUT_WINDOW_HEIGHT);
-			unsigned char * buffer = (unsigned char *) malloc(w * h * 4 * sizeof(unsigned char));
-			if (!buffer)
-				exit(-1);
-			// glRasterPos2i(0, 0);
-			glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-			static char filename[80];
-			sprintf_s(filename, "snapshots/img%.5i.png", frame_number / FRAME_INTERVAL);
-			printf("Dumped %s.\n", filename);
-			saveImageRGBA(filename, buffer, w, h);
-
-			free(buffer);
-		}
+	//cout << "time: " << (level_elapsed_time - level_start_time) << endl;
+	level_elapsed_time = timeGetTime();
+	while(((level_elapsed_time - level_start_time) % 33) != 0)
+	{
+		level_elapsed_time = timeGetTime();
+		Sleep(1);
 	}
+
+	float fps = (level_elapsed_time - level_start_time);
+
 	frame_number++;
 
 	glutSwapBuffers ();

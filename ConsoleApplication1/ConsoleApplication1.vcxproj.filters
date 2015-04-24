@@ -67,8 +67,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="glut32.dll" />
-    <None Include="libpng16.dll" />
-    <None Include="zlib1.dll" />
+    <None Include="..\Debug\libpng16.dll" />
+    <None Include="..\Debug\glut32.dll" />
+    <None Include="..\Debug\zlib1.dll" />
   </ItemGroup>
 </Project>
