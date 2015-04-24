@@ -138,14 +138,18 @@ static void post_display ( void )
 	// Write frames if necessary.
 	//cout << "time: " << (level_elapsed_time - level_start_time) << endl;
 	level_elapsed_time = timeGetTime();
-	while(((level_elapsed_time - level_start_time) % 33) != 0)
+	while(!(((level_elapsed_time - level_start_time) % 33) == 0))
 	{
 		level_elapsed_time = timeGetTime();
 		Sleep(1);
 	}
-
-	float fps = (level_elapsed_time - level_start_time);
-
+	
+	if (((level_elapsed_time - level_start_time) % 1000) <= 33)
+	{
+		cout << "frames per second: " << frame_number << endl;
+		cout << "modulo: " << ((level_elapsed_time - level_start_time) % 1000) << endl;
+		frame_number = 0;
+	}
 	frame_number++;
 
 	glutSwapBuffers ();
