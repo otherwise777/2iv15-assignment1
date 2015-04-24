@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gfx/vec2.h>
+#include "include/gfx/vec2.h"
 
 class Particle
 {

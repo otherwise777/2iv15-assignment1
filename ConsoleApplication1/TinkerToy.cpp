@@ -15,8 +15,13 @@ using namespace std;
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
-#include <glut.h>
 
+#if defined(HAVE_CONFIG_H)
+#  include <glut.h>
+#elif defined(__APPLE__)
+#  include <GLUT/glut.h>
+#endif
+// #include <glut.h>
 /* macros */
 
 /* external definitions (from solver) */
@@ -93,7 +98,7 @@ static void init_system(void)
 	pVector.push_back(new Particle(center + offset));
 	pVector.push_back(new Particle(center + 2 * offset));
 	pVector.push_back(new Particle(center + 3 * offset));
-	
+
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
 
@@ -140,12 +145,12 @@ static void post_display ( void )
 			sprintf_s(filename, "snapshots/img%.5i.png", frame_number / FRAME_INTERVAL);
 			printf("Dumped %s.\n", filename);
 			saveImageRGBA(filename, buffer, w, h);
-			
+
 			free(buffer);
 		}
 	}
 	frame_number++;
-	
+
 	glutSwapBuffers ();
 }
 
@@ -195,7 +200,7 @@ static void get_from_UI ()
 	// int size, flag;
 	int hi, hj;
 	// float x, y;
-	if ( !mouse_down[0] && !mouse_down[2] && !mouse_release[0] 
+	if ( !mouse_down[0] && !mouse_down[2] && !mouse_release[0]
 	&& !mouse_shiftclick[0] && !mouse_shiftclick[2] ) return;
 
 	i = (int)((mx /(float)win_x)*N);
@@ -380,9 +385,9 @@ int main ( int argc, char ** argv )
 	dsim = 0;
 	dump_frames = 0;
 	frame_number = 0;
-	
+
 	init_system();
-	
+
 	win_x = 512;
 	win_y = 512;
 	open_glut_window ();
@@ -391,4 +396,3 @@ int main ( int argc, char ** argv )
 
 	exit ( 0 );
 }
-
