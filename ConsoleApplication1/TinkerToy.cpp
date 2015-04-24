@@ -109,7 +109,16 @@ static void init_system(void)
 
 	for(int i = 0; i < 3; i = i + 1)
 	{
-		gravity.push_front(new Gravity(pVector[i], Vec2f(0.0, -0.2)));
+		/*
+		if (i == 0)
+		{
+			gravity.push_back(new Gravity(pVector[i], Vec2f(0.0, 0.0)));
+		}
+		else
+		{
+			gravity.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
+		}
+		*/
 	}
 
 	delete_this_dummy_spring = new SpringForce(pVector[0], pVector[1], dist, 1.0, 1.0);
@@ -147,7 +156,6 @@ static void post_display ( void )
 	if (((level_elapsed_time - level_start_time) % 1000) <= 33)
 	{
 		cout << "frames per second: " << frame_number << endl;
-		cout << "modulo: " << ((level_elapsed_time - level_start_time) % 1000) << endl;
 		frame_number = 0;
 	}
 	frame_number++;
@@ -298,6 +306,7 @@ static void idle_func ( void )
 {
 	if (dsim)
 	{
+		delete_this_dummy_spring->apply();
 		for_each(gravity.begin(), gravity.end(), [](Gravity* g)
 		{
 			g->apply();
