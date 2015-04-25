@@ -29,7 +29,7 @@ void RodConstraint::apply()
 	float C = (posdif[0] * posdif[0] + posdif[1] * posdif[1] - m_dist*m_dist);
 	float CDot = (speeddif[0] * speeddif[0] + speeddif[1] * speeddif[1]);
 
-	Vec2f force_p1 = -(ks * C + kd * CDot);
+	Vec2f force_p1 = (posdif / posLength)*(ks * C);
 	Vec2f force_p2 = -force_p1;
 
 	m_p1->m_Velocity -= force_p1;

@@ -120,7 +120,7 @@ static void init_system(void)
 	//springs.push_back(new SpringForce(pVector[0], pVector[1], 0.5, 0.8, 0.5));
 	//springs.push_back(new SpringForce(pVector[1], pVector[2], 0.5, 0.8, 0.5));
 
-	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], dist);
+	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], 0.5);
 	delete_this_dummy_wire = new CircularWireConstraint(pVector[0], center, dist);
 }
 
