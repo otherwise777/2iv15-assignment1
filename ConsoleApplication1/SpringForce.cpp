@@ -1,7 +1,5 @@
 #include "SpringForce.h"
 #include <glut.h>
-#include <iostream>
-using namespace std;
 
 //Spring system force calculations between 2 particles
 //ks = strength
@@ -22,7 +20,6 @@ void SpringForce::draw()
 
 void SpringForce::apply()
 {
-
 	Vec2f posdif = (m_p1->m_Position - m_p2->m_Position);
 	Vec2f speeddif = (m_p1->m_Velocity - m_p2->m_Velocity);
 	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));

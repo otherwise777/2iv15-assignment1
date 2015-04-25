@@ -7,6 +7,7 @@ class RodConstraint {
   RodConstraint(Particle *p1, Particle * p2, double dist);
 
   void draw();
+  void apply();
 
  private:
 
