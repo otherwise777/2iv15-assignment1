@@ -99,14 +99,15 @@ static void init_system(void)
 		gravity.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
 	}
 
-	springs.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.8, 0.5));
+	//springs.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.8, 0.5));
 	springs.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.8, 0.5));
 
-	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
+	rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
 	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
 	circles.push_back(new CircularWireConstraint(pVector[0], 0.0, dist));
-	//circles.push_back(new CircularWireConstraint(pVector[2], 0.0, dist));
+	circles.push_back(new CircularWireConstraint(pVector[1], 0.0, dist));
+	circles.push_back(new CircularWireConstraint(pVector[2], 0.0, dist));
 }
 
 /*
