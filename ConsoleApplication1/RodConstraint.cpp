@@ -19,7 +19,7 @@ void RodConstraint::draw()
 
 void RodConstraint::apply()
 {
-	float ks = 1;
+	float ks = 0.3;
 	float kd = 1;
 
 	Vec2f posdif = (m_p1->m_Position - m_p2->m_Position);
