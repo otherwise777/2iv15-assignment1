@@ -1,6 +1,7 @@
 #include "MouseForce.h"
 #include <glut.h>
 
+bool m_setForce = false;
 
 MouseForce::MouseForce(Particle *p, Vec2f & Mouse, double ks, double kd) :
 m_p(p), m_mouse(Mouse), m_ks(ks), m_kd(kd) {}
@@ -20,17 +21,23 @@ void MouseForce::getMouse(const Vec2f & Mouse)
 	m_mouse = Mouse;
 }
 
+void MouseForce::setForce(bool applyForce)
+{
+	m_setForce = applyForce;
+}
+
 void MouseForce::apply()
 {
-	
-	Vec2f posdif = (m_p->m_Position - m_mouse);
-	Vec2f speeddif = (m_p->m_Velocity);
-	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
-	float dotProduct = (speeddif[0] * posdif[0] + speeddif[1] * posdif[1]);
+	if (m_setForce)
+	{
+		Vec2f posdif = (m_p->m_Position - m_mouse);
+		Vec2f speeddif = (m_p->m_Velocity);
+		float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
+		float dotProduct = (speeddif[0] * posdif[0] + speeddif[1] * posdif[1]);
 
-	Vec2f force_p1 = (posdif / posLength)*((m_ks * (posLength)) + (m_kd * (dotProduct / posLength)));
-	Vec2f force_p2 = -force_p1;
+		Vec2f force_p1 = (posdif / posLength)*((m_ks * (posLength)) + (m_kd * (dotProduct / posLength)));
+		Vec2f force_p2 = -force_p1;
 
-	m_p->m_Velocity -= force_p1;
-	
+		m_p->m_Velocity -= force_p1;
+	}
 }
