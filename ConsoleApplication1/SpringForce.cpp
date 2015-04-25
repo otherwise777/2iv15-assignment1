@@ -11,9 +11,9 @@ SpringForce::SpringForce(Particle *p1, Particle * p2, double dist, double ks, do
 void SpringForce::draw()
 {
   glBegin( GL_LINES );
-  glColor3f(0.6, 0.7, 0.8);
+  glColor3f(1, 0, 0);
   glVertex2f( m_p1->m_Position[0], m_p1->m_Position[1] );
-  glColor3f(0.6, 0.7, 0.8);
+  glColor3f(1, 0, 0);
   glVertex2f( m_p2->m_Position[0], m_p2->m_Position[1] );
   glEnd();
 }

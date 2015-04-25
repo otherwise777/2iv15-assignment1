@@ -1,5 +1,7 @@
 #include "CircularWireConstraint.h"
 #include <glut.h>
+#include <iostream>
+using namespace std;
 
 #define PI 3.1415926535897932384626433832795
 
@@ -21,4 +23,20 @@ CircularWireConstraint::CircularWireConstraint(Particle *p, const Vec2f & center
 void CircularWireConstraint::draw()
 {
 	draw_circle(m_center, m_radius);
+}
+
+void CircularWireConstraint::apply()
+{
+	float ks = 1;
+	float kd = 1;
+
+	Vec2f posdif = (m_p->m_Position - m_center);
+	float posLength = sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]);
+
+	float C = (posdif[0] * posdif[0] + posdif[1] * posdif[1] - m_radius * m_radius);
+
+	cout << "pos dif: " << C << endl;
+	Vec2f force_p1 = (posdif / posLength)*(ks * C);
+
+	m_p->m_Velocity -= force_p1;
 }

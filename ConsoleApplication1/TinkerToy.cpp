@@ -49,9 +49,8 @@ static int hmx, hmy;
 
 std::list<Gravity*> gravity;
 std::list<SpringForce*> springs;
-
-static RodConstraint * delete_this_dummy_rod = NULL;
-static CircularWireConstraint * delete_this_dummy_wire = NULL;
+std::list<RodConstraint*> rods;
+std::list<CircularWireConstraint*> circles;
 
 long long level_elapsed_time = 0;
 long long level_start_time = 0;
@@ -65,14 +64,6 @@ free/clear/allocate simulation data
 static void free_data ( void )
 {
 	pVector.clear();
-	if (delete_this_dummy_rod) {
-		delete delete_this_dummy_rod;
-		delete_this_dummy_rod = NULL;
-	}
-	if (delete_this_dummy_wire) {
-		delete delete_this_dummy_wire;
-		delete_this_dummy_wire = NULL;
-	}
 }
 
 static void clear_data ( void )
@@ -120,8 +111,10 @@ static void init_system(void)
 	//springs.push_back(new SpringForce(pVector[0], pVector[1], 0.5, 0.8, 0.5));
 	//springs.push_back(new SpringForce(pVector[1], pVector[2], 0.5, 0.8, 0.5));
 
-	delete_this_dummy_rod = new RodConstraint(pVector[1], pVector[2], 0.5);
-	delete_this_dummy_wire = new CircularWireConstraint(pVector[0], center, dist);
+	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
+	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
+
+	circles.push_back(new CircularWireConstraint(pVector[0], 0.0, dist));
 }
 
 /*
@@ -189,14 +182,15 @@ static void draw_forces ( void )
 static void draw_constraints ( void )
 {
 	// change this to iteration over full set
-	if (delete_this_dummy_rod)
+	for_each(rods.begin(), rods.end(), [](RodConstraint* r)
 	{
-		delete_this_dummy_rod->draw();
-	}
-	if (delete_this_dummy_wire)
+		r->draw();
+	});
+
+	for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
 	{
-		delete_this_dummy_wire->draw();
-	}
+		c->draw();
+	});
 }
 
 /*
@@ -308,7 +302,11 @@ static void idle_func ( void )
 {
 	if (dsim)
 	{
-		delete_this_dummy_rod->apply();
+		for_each(rods.begin(), rods.end(), [](RodConstraint* r)
+		{
+			r->apply();
+		});
+
 		for_each(springs.begin(), springs.end(), [](SpringForce* s)
 		{
 			s->apply();
@@ -317,6 +315,11 @@ static void idle_func ( void )
 		for_each(gravity.begin(), gravity.end(), [](Gravity* g)
 		{
 			g->apply();
+		});
+
+		for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
+		{
+			c->apply();
 		});
 
 		simulation_step(pVector, dt);
