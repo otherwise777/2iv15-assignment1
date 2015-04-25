@@ -22,7 +22,7 @@ void MouseForce::getMouse(const Vec2f & Mouse)
 
 void MouseForce::apply()
 {
-	/*
+	
 	Vec2f posdif = (m_p->m_Position - m_mouse);
 	Vec2f speeddif = (m_p->m_Velocity);
 	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
@@ -32,5 +32,5 @@ void MouseForce::apply()
 	Vec2f force_p2 = -force_p1;
 
 	m_p->m_Velocity -= force_p1;
-	*/
+	
 }

@@ -52,6 +52,9 @@ static int mouse_shiftclick[3];
 static int omx, omy, mx, my;
 static int hmx, hmy;
 
+int particleSelected = 0;
+bool particleBusy = false;
+
 std::list<Gravity*> gravity;
 std::list<SpringForce*> springs;
 std::list<RodConstraint*> rods;
@@ -116,9 +119,9 @@ static void init_system(void)
 
 	circles.push_back(new CircularWireConstraint(pVector[1], center, dist));
 
-	Mouse_p1 = new MouseForce(pVector[0], MousePos1, 1.0, 1.0);
-	Mouse_p2 = new MouseForce(pVector[1], MousePos2, 1.0, 1.0);
-	Mouse_p3 = new MouseForce(pVector[2], MousePos3, 1.0, 1.0);
+	Mouse_p1 = new MouseForce(pVector[0], pVector[0]->m_Position, 1.0, 1.0);
+	Mouse_p2 = new MouseForce(pVector[1], pVector[1]->m_Position, 1.0, 1.0);
+	Mouse_p3 = new MouseForce(pVector[2], pVector[2]->m_Position, 1.0, 1.0);
 }
 
 /*
@@ -218,6 +221,9 @@ static void get_mouse_pos()
 	i = (int)((mx / (float)win_x)*N);
 	j = (int)(((win_y - my) / (float)win_y)*N);
 
+	if (!mouse_down[0] && !mouse_down[2] && !mouse_release[0]
+		&& !mouse_shiftclick[0] && !mouse_shiftclick[2]) return;
+
 	if (mouse_down[0]) 
 	{
 		x = i - 32;
@@ -228,13 +234,73 @@ static void get_mouse_pos()
 
 		MousePos1[0] = x;
 		MousePos1[1] = y;
+		MousePos2[0] = x;
+		MousePos2[1] = y;
+		MousePos3[0] = x;
+		MousePos3[1] = y;
 
-		Mouse_p1->getMouse(MousePos1);
+		float xDis1 = pVector[0]->m_Position[0] - MousePos1[0];
+		float yDis1 = pVector[0]->m_Position[1] - MousePos1[1];
+		float xDis2 = pVector[1]->m_Position[0] - MousePos2[0];
+		float yDis2 = pVector[1]->m_Position[1] - MousePos2[1];
+		float xDis3 = pVector[2]->m_Position[0] - MousePos3[0];
+		float yDis3 = pVector[2]->m_Position[1] - MousePos3[1];
+
+		float distance1 = xDis1*xDis1 + yDis1*yDis1;
+		float distance2 = xDis2*xDis2 + yDis2*yDis2;
+		float distance3 = xDis3*xDis3 + yDis3*yDis3;
+
+		if (distance1 < 0.001 && !particleBusy)
+		{
+			particleBusy = true;
+			particleSelected = 1;
+		}
+		else if (distance2 < 0.001 && !particleBusy)
+		{
+			particleBusy = true;
+			particleSelected = 2;
+		}
+		else if (distance3 < 0.001 && !particleBusy)
+		{
+			particleBusy = true;
+			particleSelected = 3;
+		}
+		if (particleSelected == 0)
+		{
+			Mouse_p1->getMouse(pVector[0]->m_Position);
+			Mouse_p2->getMouse(pVector[1]->m_Position);
+			Mouse_p3->getMouse(pVector[2]->m_Position);
+		}
+		else if (particleSelected == 1)
+		{
+			Mouse_p1->getMouse(MousePos1);
+			Mouse_p2->getMouse(pVector[1]->m_Position);
+			Mouse_p3->getMouse(pVector[2]->m_Position);
+			Mouse_p1->apply();
+		}
+		else if (particleSelected == 2)
+		{
+			Mouse_p1->getMouse(pVector[0]->m_Position);
+			Mouse_p2->getMouse(MousePos2);
+			Mouse_p3->getMouse(pVector[2]->m_Position);
+			Mouse_p2->apply();
+		}
+		else if (particleSelected == 3)
+		{
+			Mouse_p1->getMouse(pVector[0]->m_Position);
+			Mouse_p2->getMouse(pVector[1]->m_Position);
+			Mouse_p3->getMouse(MousePos3);
+			Mouse_p3->apply();
+		}
 	}
 
-	if (mouse_release[0]) 
+	if (!mouse_down[0])
 	{
-
+		particleBusy = false;
+		particleSelected = 0;
+		Mouse_p1->getMouse(pVector[0]->m_Position);
+		Mouse_p2->getMouse(pVector[1]->m_Position);
+		Mouse_p3->getMouse(pVector[2]->m_Position);
 	}
 }
 
@@ -244,8 +310,6 @@ static void get_from_UI ()
 	// int size, flag;
 	int hi, hj;
 	// float x, y;
-	if ( !mouse_down[0] && !mouse_down[2] && !mouse_release[0]
-	&& !mouse_shiftclick[0] && !mouse_shiftclick[2] ) return;
 
 	i = (int)((mx /(float)win_x)*N);
 	j = (int)(((win_y-my)/(float)win_y)*N);
