@@ -10,6 +10,7 @@ using namespace std;
 #include "Particle.h"
 #include "SpringForce.h"
 #include "RodConstraint.h"
+#include "MouseForce.h"
 #include "CircularWireConstraint.h"
 #include "imageio.h"
 
@@ -39,6 +40,10 @@ static int frame_number;
 // static Particle *pList;
 static std::vector<Particle*> pVector;
 
+Vec2f MousePos1;
+Vec2f MousePos2;
+Vec2f MousePos3;
+
 static int win_id;
 static int win_x, win_y;
 static int mouse_down[3];
@@ -51,6 +56,10 @@ std::list<Gravity*> gravity;
 std::list<SpringForce*> springs;
 std::list<RodConstraint*> rods;
 std::list<CircularWireConstraint*> circles;
+
+static MouseForce * Mouse_p1 = NULL;
+static MouseForce * Mouse_p2 = NULL;
+static MouseForce * Mouse_p3 = NULL;
 
 long long level_elapsed_time = 0;
 long long level_start_time = 0;
@@ -100,14 +109,16 @@ static void init_system(void)
 	}
 
 	//springs.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.8, 0.5));
-	springs.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.8, 0.5));
+	springs.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 2, 0.7));
 
 	rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
 	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
-	circles.push_back(new CircularWireConstraint(pVector[0], 0.0, dist));
-	circles.push_back(new CircularWireConstraint(pVector[1], 0.0, dist));
-	circles.push_back(new CircularWireConstraint(pVector[2], 0.0, dist));
+	circles.push_back(new CircularWireConstraint(pVector[1], center, dist));
+
+	Mouse_p1 = new MouseForce(pVector[0], MousePos1, 1.0, 1.0);
+	Mouse_p2 = new MouseForce(pVector[1], MousePos2, 1.0, 1.0);
+	Mouse_p3 = new MouseForce(pVector[2], MousePos3, 1.0, 1.0);
 }
 
 /*
@@ -170,6 +181,10 @@ static void draw_forces ( void )
 		g->draw();
 	});
 
+	Mouse_p1->draw();
+	Mouse_p2->draw();
+	Mouse_p3->draw();
+
 }
 
 static void draw_constraints ( void )
@@ -192,6 +207,37 @@ relates mouse movements to tinker toy construction
 ----------------------------------------------------------------------
 */
 
+static void get_mouse_pos()
+{
+	//screen is -1 to 1 in both x and y pos
+	//mouse pos is from 0 to 64
+	float x = 0;
+	float y = 0;
+	
+	int i, j;
+	i = (int)((mx / (float)win_x)*N);
+	j = (int)(((win_y - my) / (float)win_y)*N);
+
+	if (mouse_down[0]) 
+	{
+		x = i - 32;
+		x = (float)(x / 32);
+
+		y = j - 32;
+		y = (float)(y / 32);
+
+		MousePos1[0] = x;
+		MousePos1[1] = y;
+
+		Mouse_p1->getMouse(MousePos1);
+	}
+
+	if (mouse_release[0]) 
+	{
+
+	}
+}
+
 static void get_from_UI ()
 {
 	int i, j;
@@ -207,7 +253,6 @@ static void get_from_UI ()
 	if ( i<1 || i>N || j<1 || j>N ) return;
 
 	if ( mouse_down[0] ) {
-		cout << "x pos : " << i << " y pos: " << j << endl;
 	}
 
 	if ( mouse_down[2] ) {
@@ -295,6 +340,8 @@ static void idle_func ( void )
 {
 	if (dsim)
 	{
+		get_mouse_pos();
+
 		for_each(rods.begin(), rods.end(), [](RodConstraint* r)
 		{
 			r->apply();

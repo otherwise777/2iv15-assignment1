@@ -27,17 +27,15 @@ void CircularWireConstraint::draw()
 
 void CircularWireConstraint::apply()
 {
-	float ks = 2;
-	float kd = 1;
+	float m_ks = 2;
+	float m_kd = 1;
 
 	Vec2f posdif = (m_p->m_Position - m_center);
 	Vec2f speeddif = (m_p->m_Velocity);
-	float posLength = sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]);
+	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
+	float dotProduct = (speeddif[0] * posdif[0] + speeddif[1] * posdif[1]);
 
-	float C = (posdif[0] * posdif[0] + posdif[1] * posdif[1] - m_radius * m_radius);
-	float CDot = (speeddif[0] * speeddif[0] + speeddif[1] * speeddif[1]);
-
-	Vec2f force_p1 = (posdif / posLength)*(ks * C);
+	Vec2f force_p1 = (posdif / posLength)*((m_ks * (posLength - m_radius)) + (m_kd * (dotProduct / posLength)));
 
 	m_p->m_Velocity -= force_p1;
 }
