@@ -97,7 +97,7 @@ static void init_system(void)
 
 	//pVector.push_back(new Particle(Vec2f(0.0, 0.0) + Vec2f(dist, 0.0)));
 	pVector.push_back(new Particle(center - offset));
-	pVector.push_back(new Particle(center));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.1)));
 	pVector.push_back(new Particle(center + offset));
 	pVector.push_back(new Particle(center + 2*offset));
 	pVector.push_back(new Particle(secondRow - offset));
@@ -152,7 +152,10 @@ static void init_system(void)
 	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
 	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
-	circles.push_back(new CircularWireConstraint(pVector[0], center, dist));
+	circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
 
 }
 
