@@ -12,6 +12,7 @@ using namespace std;
 #include "RodConstraint.h"
 #include "MouseForce.h"
 #include "CircularWireConstraint.h"
+#include "LineWireConstraint.h"
 #include "imageio.h"
 
 #include <vector>
@@ -56,6 +57,7 @@ std::list<Gravity*> gravity;
 std::list<SpringForce*> springs;
 std::list<RodConstraint*> rods;
 std::list<CircularWireConstraint*> circles;
+std::list<LineWireConstraint*> lines;
 std::vector<MouseForce*> mouses;
 
 long long level_elapsed_time = 0;
@@ -97,7 +99,7 @@ static void init_system(void)
 
 	//pVector.push_back(new Particle(Vec2f(0.0, 0.0) + Vec2f(dist, 0.0)));
 	pVector.push_back(new Particle(center - offset));
-	pVector.push_back(new Particle(Vec2f(0.0, 0.1)));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.2)));
 	pVector.push_back(new Particle(center + offset));
 	pVector.push_back(new Particle(center + 2*offset));
 	pVector.push_back(new Particle(secondRow - offset));
@@ -152,11 +154,15 @@ static void init_system(void)
 	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
 	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
-	circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
+	//circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
+	//circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
+	//circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
+	//circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
 
+	lines.push_back(new LineWireConstraint(pVector[0], 0.1));
+	lines.push_back(new LineWireConstraint(pVector[1], 0.1));
+	lines.push_back(new LineWireConstraint(pVector[2], 0.1));
+	lines.push_back(new LineWireConstraint(pVector[3], 0.1));
 }
 
 /*
@@ -236,6 +242,11 @@ static void draw_constraints ( void )
 	for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
 	{
 		c->draw();
+	});
+
+	for_each(lines.begin(), lines.end(), [](LineWireConstraint* l)
+	{
+		l->draw();
 	});
 }
 
@@ -428,6 +439,11 @@ static void idle_func ( void )
 		for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
 		{
 			c->apply();
+		});
+
+		for_each(lines.begin(), lines.end(), [](LineWireConstraint* l)
+		{
+			l->apply();
 		});
 
 		simulation_step(pVector, dt);
