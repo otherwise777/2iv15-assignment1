@@ -9,17 +9,23 @@ m_p(p), m_mouse(Mouse), m_ks(ks), m_kd(kd) {}
 
 void MouseForce::draw()
 {
+
 	glBegin(GL_LINES);
 	glColor3f(1, 1, 0);
 	glVertex2f(m_p->m_Position[0], m_p->m_Position[1]);
 	glColor3f(1, 1, 0);
 	glVertex2f(m_mouse[0], m_mouse[1]);
 	glEnd();
+
+}
+
+void MouseForce::setForce(bool applyForce)
+{
+	m_setForce = applyForce;
 }
 
 void MouseForce::getMouse(const Vec2f & Mouse)
 {
-	cout << "test" << endl;
 	m_mouse = Mouse;
 }
 

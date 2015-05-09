@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Particle.h"
+#include "Force.h"
 
-class LineWireConstraint {
+class LineWireConstraint : public Force
+{
 public:
 	LineWireConstraint(Particle *p, float height);
 

@@ -4,11 +4,6 @@
 Gravity::Gravity(Particle * p1, const Vec2f & grav) :
 m_p1(p1), g(grav){}
 
-void Gravity::getMouse(const Vec2f & Mouse)
-{
-	//nothing for this force
-}
-
 void Gravity::draw()
 {
 	glBegin(GL_LINES);

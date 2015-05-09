@@ -9,7 +9,6 @@ public:
 
 	Gravity(Particle *p1, const Vec2f & grav);
 
-	void getMouse(const Vec2f & Mouse);
 	void draw();
 	void apply();
 

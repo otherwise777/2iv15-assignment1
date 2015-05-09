@@ -29,13 +29,13 @@ using namespace std;
 /* macros */
 
 /* external definitions (from solver) */
-extern void simulation_step( std::vector<Particle*> pVector, float dt );
+extern void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt);
 
 /* global variables */
 
 static int N;
 static float dt, d;
-static int dsim;
+int dsim;
 static int dump_frames;
 static int frame_number;
 
@@ -58,6 +58,7 @@ std::list<RodConstraint*> rods;
 std::list<CircularWireConstraint*> circles;
 std::list<LineWireConstraint*> lines;
 
+std::vector<MouseForce*> mouses;
 std::vector<Force*> forces;
 
 long long level_elapsed_time = 0;
@@ -122,7 +123,7 @@ static void init_system(void)
 
 	for (i = 0; i<size; i++)
 	{
-		forces.push_back(new MouseForce(pVector[i], pVector[i]->m_Position, 1.0, 1.0));
+		mouses.push_back(new MouseForce(pVector[i], pVector[i]->m_Velocity, 1.0, 1.0));
 	}
 
 	for (i = 0; i<size; i++)
@@ -130,7 +131,7 @@ static void init_system(void)
 		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
 	}
 
-	rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
+	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.6, 0.7));
 	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.6, 0.7));
 	forces.push_back(new SpringForce(pVector[2], pVector[3], 0.2, 0.6, 0.7));
@@ -156,18 +157,18 @@ static void init_system(void)
 	forces.push_back(new SpringForce(pVector[10], pVector[14], 0.2, 0.6, 0.7));
 	forces.push_back(new SpringForce(pVector[11], pVector[15], 0.2, 0.6, 0.7));
 
-	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
-	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
+	//forces.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
+	//forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
-	circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
-	circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
+	//forces.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
+	//forces.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
+	//forces.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
+	//forces.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
 
-	//lines.push_back(new LineWireConstraint(pVector[0], 0.1));
-	//lines.push_back(new LineWireConstraint(pVector[1], 0.1));
-	//lines.push_back(new LineWireConstraint(pVector[2], 0.1));
-	//lines.push_back(new LineWireConstraint(pVector[3], 0.1));
+	forces.push_back(new LineWireConstraint(pVector[0], 0.1));
+	forces.push_back(new LineWireConstraint(pVector[1], 0.1));
+	forces.push_back(new LineWireConstraint(pVector[2], 0.1));
+	forces.push_back(new LineWireConstraint(pVector[3], 0.1));
 }
 
 /*
@@ -223,24 +224,10 @@ static void draw_forces ( void )
 	{
 		f->draw();
 	});
-}
 
-static void draw_constraints ( void )
-{
-	// change this to iteration over full set
-	for_each(rods.begin(), rods.end(), [](RodConstraint* r)
+	for_each(mouses.begin(), mouses.end(), [](MouseForce* m)
 	{
-		r->draw();
-	});
-
-	for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
-	{
-		c->draw();
-	});
-
-	for_each(lines.begin(), lines.end(), [](LineWireConstraint* l)
-	{
-		l->draw();
+		m->draw();
 	});
 }
 
@@ -266,6 +253,7 @@ static void get_mouse_pos()
 
 	if (mouse_down[0]) 
 	{
+
 		x = i - 32;
 		x = (float)(x / 32);
 
@@ -276,8 +264,6 @@ static void get_mouse_pos()
 
 		for (i = 0; i<size; i++)
 		{
-			//forces[i]->getMouse(pVector[i]->m_Position);
-			//forces[i]->setForce(false);
 
 			MousePos[0] = x;
 			MousePos[1] = y;
@@ -295,61 +281,32 @@ static void get_mouse_pos()
 			//particle is selected
 			if (particleSelected == i)
 			{
-				forces[i]->getMouse(MousePos);
-				forces[i]->apply();
-				//mouses[i]->getMouse(MousePos);
-				//mouses[i]->setForce(true);
-				//mouses[i]->apply();
+				mouses[i]->getMouse(MousePos);
+				mouses[i]->setForce(true);
+				mouses[i]->apply();
 			}
 			else
 			{
-				forces[i]->getMouse(pVector[i]->m_Position);
+				mouses[i]->getMouse(pVector[i]->m_Position);
+				mouses[i]->setForce(false);
 			}
 
 		}
 	}
-
-	if (!mouse_down[0])
+	else
 	{
 		particleSelected = -1;
 		int i, size = pVector.size();
 
 		for (i = 0; i < size; i++)
 		{
-			forces[i]->getMouse(pVector[i]->m_Position);
-			//mouses[i]->getMouse(pVector[i]->m_Position);
-			//mouses[i]->setForce(false);
+			mouses[i]->getMouse(pVector[i]->m_Position);
+			mouses[i]->setForce(false);
 		}
 	}
 }
 
-static void get_from_UI ()
-{
-	int i, j;
-	// int size, flag;
-	int hi, hj;
-	// float x, y;
 
-	i = (int)((mx /(float)win_x)*N);
-	j = (int)(((win_y-my)/(float)win_y)*N);
-
-	if ( i<1 || i>N || j<1 || j>N ) return;
-
-	if ( mouse_down[0] ) {
-	}
-
-	if ( mouse_down[2] ) {
-	}
-
-	hi = (int)((       hmx /(float)win_x)*N);
-	hj = (int)(((win_y-hmy)/(float)win_y)*N);
-
-	if( mouse_release[0] ) {
-	}
-
-	omx = mx;
-	omy = my;
-}
 
 static void remap_GUI()
 {
@@ -421,35 +378,11 @@ static void reshape_func ( int width, int height )
 
 static void idle_func ( void )
 {
-	if (dsim)
-	{
-		for_each(forces.begin(), forces.end(), [](Force* f)
-		{
-			f->apply();
-		});
+	simulation_step(pVector, forces, dt);
 
-		for_each(rods.begin(), rods.end(), [](RodConstraint* r)
-		{
-			r->apply();
-		});
+	get_mouse_pos();
 
-		for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)
-		{
-			c->apply();
-		});
-
-		for_each(lines.begin(), lines.end(), [](LineWireConstraint* l)
-		{
-			l->apply();
-		});
-
-		simulation_step(pVector, dt);
-
-		get_mouse_pos();
-
-	}
-	else        {get_from_UI();remap_GUI();}
-
+	dsim = 1;
 	glutSetWindow ( win_id );
 	glutPostRedisplay ();
 }
@@ -459,7 +392,6 @@ static void display_func ( void )
 	pre_display ();
 
 	draw_forces();
-	draw_constraints();
 	draw_particles();
 
 	post_display ();
@@ -527,16 +459,19 @@ int main ( int argc, char ** argv )
 	printf ( "\t Dump frames by pressing the 'd' key\n" );
 	printf ( "\t Quit by pressing the 'q' key\n" );
 
-	dsim = 0;
 	dump_frames = 0;
 	frame_number = 0;
 
 	init_system();
 
+
 	win_x = 512;
 	win_y = 512;
 	open_glut_window ();
 
+	dsim = 0;
+	mouse_down[0] = true;
+	remap_GUI();
 	glutMainLoop ();
 
 	exit ( 0 );
