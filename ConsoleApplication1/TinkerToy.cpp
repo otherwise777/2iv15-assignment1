@@ -102,19 +102,6 @@ static void init_system(void)
 	pVector.push_back(new Particle(center - offset));
 	pVector.push_back(new Particle(Vec2f(0.0, 0.2)));
 	pVector.push_back(new Particle(center + offset));
-	pVector.push_back(new Particle(center + 2*offset));
-	pVector.push_back(new Particle(secondRow - offset));
-	pVector.push_back(new Particle(secondRow));
-	pVector.push_back(new Particle(secondRow + offset));
-	pVector.push_back(new Particle(secondRow + 2*offset));
-	pVector.push_back(new Particle(thirdRow - offset));
-	pVector.push_back(new Particle(thirdRow));
-	pVector.push_back(new Particle(thirdRow + offset));
-	pVector.push_back(new Particle(thirdRow + 2*offset));
-	pVector.push_back(new Particle(fourthRow - offset));
-	pVector.push_back(new Particle(fourthRow));
-	pVector.push_back(new Particle(fourthRow + offset));
-	pVector.push_back(new Particle(fourthRow + 2*offset));
 
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
@@ -131,44 +118,10 @@ static void init_system(void)
 		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
 	}
 
-	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
-	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[2], pVector[3], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[4], pVector[5], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[5], pVector[6], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[6], pVector[7], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[8], pVector[9], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[9], pVector[10], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[10], pVector[11], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[12], pVector[13], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[13], pVector[14], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[14], pVector[15], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[0], pVector[4], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[1], pVector[5], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[2], pVector[6], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[3], pVector[7], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[4], pVector[8], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[5], pVector[9], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[6], pVector[10], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[7], pVector[11], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[8], pVector[12], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[9], pVector[13], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[10], pVector[14], 0.2, 0.6, 0.7));
-	forces.push_back(new SpringForce(pVector[11], pVector[15], 0.2, 0.6, 0.7));
-
-	//forces.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
-	//forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
-
-	//forces.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
-	//forces.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
-	//forces.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
-	//forces.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
+	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.4));
+	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.1, 1, 0.8));
 
 	forces.push_back(new LineWireConstraint(pVector[0], 0.1));
-	forces.push_back(new LineWireConstraint(pVector[1], 0.1));
-	forces.push_back(new LineWireConstraint(pVector[2], 0.1));
-	forces.push_back(new LineWireConstraint(pVector[3], 0.1));
 }
 
 /*
@@ -344,9 +297,6 @@ static void key_func ( unsigned char key, int x, int y )
 		exit ( 0 );
 		break;
 
-	case ' ':
-		dsim = !dsim;
-		break;
 	}
 }
 
@@ -379,10 +329,8 @@ static void reshape_func ( int width, int height )
 static void idle_func ( void )
 {
 	simulation_step(pVector, forces, dt);
-
 	get_mouse_pos();
 
-	dsim = 1;
 	glutSetWindow ( win_id );
 	glutPostRedisplay ();
 }

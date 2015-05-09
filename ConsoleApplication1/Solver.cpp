@@ -9,14 +9,22 @@ void simulation_step( std::vector<Particle*> pVector, std::vector<Force*> forces
 {
 	int i, size = pVector.size();
 	
-	for_each(forces.begin(), forces.end(), [](Force* f)
-	{
-		f->apply();
-	});
+	for (int i = 0; i < forces.size(); i++) {
+		forces[i]->apply();
+	}
+
+	//F= m*a
+	//a = F/m
+	//V= a*t
+	//V= (F*t)/m
+	//S= V*t
+	for (int i = 0; i < pVector.size(); i++) {
+		pVector[i]->m_Velocity += ((pVector[i]->m_Force * dt)/pVector[i]->m_mass);
+	}
 
 	for(i=0; i<size; i++)
 	{
-		pVector[i]->m_Position += dt*pVector[i]->m_Velocity;
+		pVector[i]->m_Position += pVector[i]->m_Velocity * dt;
 		pVector[i]->m_Velocity = DAMP*pVector[i]->m_Velocity + Vec2f(RAND,RAND) * 0.005;
 	}
 

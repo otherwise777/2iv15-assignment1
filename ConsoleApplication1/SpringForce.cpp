@@ -26,9 +26,9 @@ void SpringForce::apply()
 	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
 	float dotProduct = (speeddif[0] * posdif[0] + speeddif[1] * posdif[1]);
 
-	Vec2f force_p1 = (posdif/posLength)*((m_ks * (posLength - m_dist)) + (m_kd * ( dotProduct / posLength)));
+	Vec2f force_p1 = -(posdif/posLength)*((m_ks * (posLength - m_dist)) + (m_kd * ( dotProduct / posLength)));
 	Vec2f force_p2 = -force_p1;
 
-	m_p1->m_Velocity -= force_p1;
-	m_p2->m_Velocity -= force_p2;
+	m_p1->m_Force = force_p1;
+	m_p2->m_Force = force_p2;
 }
