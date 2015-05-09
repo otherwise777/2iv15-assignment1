@@ -14,6 +14,7 @@ using namespace std;
 #include "CircularWireConstraint.h"
 #include "LineWireConstraint.h"
 #include "imageio.h"
+#include "Force.h"
 
 #include <vector>
 #include <stdlib.h>
@@ -53,12 +54,11 @@ static int hmx, hmy;
 
 int particleSelected = -1;
 
-std::list<Gravity*> gravity;
-std::list<SpringForce*> springs;
 std::list<RodConstraint*> rods;
 std::list<CircularWireConstraint*> circles;
 std::list<LineWireConstraint*> lines;
-std::vector<MouseForce*> mouses;
+
+std::vector<Force*> forces;
 
 long long level_elapsed_time = 0;
 long long level_start_time = 0;
@@ -122,47 +122,52 @@ static void init_system(void)
 
 	for (i = 0; i<size; i++)
 	{
-		gravity.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
-		mouses.push_back(new MouseForce(pVector[i], pVector[i]->m_Position, 1.0, 1.0));
+		forces.push_back(new MouseForce(pVector[i], pVector[i]->m_Position, 1.0, 1.0));
 	}
 
-	springs.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[2], pVector[3], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[4], pVector[5], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[5], pVector[6], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[6], pVector[7], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[8], pVector[9], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[9], pVector[10], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[10], pVector[11], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[12], pVector[13], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[13], pVector[14], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[14], pVector[15], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[0], pVector[4], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[1], pVector[5], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[2], pVector[6], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[3], pVector[7], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[4], pVector[8], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[5], pVector[9], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[6], pVector[10], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[7], pVector[11], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[8], pVector[12], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[9], pVector[13], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[10], pVector[14], 0.2, 0.6, 0.7));
-	springs.push_back(new SpringForce(pVector[11], pVector[15], 0.2, 0.6, 0.7));
+	for (i = 0; i<size; i++)
+	{
+		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
+	}
+
+	rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
+	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[2], pVector[3], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[4], pVector[5], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[5], pVector[6], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[6], pVector[7], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[8], pVector[9], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[9], pVector[10], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[10], pVector[11], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[12], pVector[13], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[13], pVector[14], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[14], pVector[15], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[0], pVector[4], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[1], pVector[5], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[2], pVector[6], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[3], pVector[7], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[4], pVector[8], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[5], pVector[9], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[6], pVector[10], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[7], pVector[11], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[8], pVector[12], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[9], pVector[13], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[10], pVector[14], 0.2, 0.6, 0.7));
+	forces.push_back(new SpringForce(pVector[11], pVector[15], 0.2, 0.6, 0.7));
 
 	//rods.push_back(new RodConstraint(pVector[0], pVector[1], 0.5));
 	//rods.push_back(new RodConstraint(pVector[1], pVector[2], 0.5));
 
-	//circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
-	//circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
-	//circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
-	//circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[2], Vec2f(0.0, 0.5), 0.4));
+	circles.push_back(new CircularWireConstraint(pVector[3], Vec2f(0.0, 0.5), 0.4));
 
-	lines.push_back(new LineWireConstraint(pVector[0], 0.1));
-	lines.push_back(new LineWireConstraint(pVector[1], 0.1));
-	lines.push_back(new LineWireConstraint(pVector[2], 0.1));
-	lines.push_back(new LineWireConstraint(pVector[3], 0.1));
+	//lines.push_back(new LineWireConstraint(pVector[0], 0.1));
+	//lines.push_back(new LineWireConstraint(pVector[1], 0.1));
+	//lines.push_back(new LineWireConstraint(pVector[2], 0.1));
+	//lines.push_back(new LineWireConstraint(pVector[3], 0.1));
 }
 
 /*
@@ -214,20 +219,9 @@ static void draw_particles ( void )
 
 static void draw_forces ( void )
 {
-	// change this to iteration over full 
-	for_each(springs.begin(), springs.end(), [](SpringForce* s)
+	for_each(forces.begin(), forces.end(), [](Force* f)
 	{
-		s->draw();
-	});
-
-	for_each(gravity.begin(), gravity.end(), [](Gravity* g)
-	{
-		g->draw();
-	});
-
-	for_each(mouses.begin(), mouses.end(), [](MouseForce* m)
-	{
-		m->draw();
+		f->draw();
 	});
 }
 
@@ -282,8 +276,8 @@ static void get_mouse_pos()
 
 		for (i = 0; i<size; i++)
 		{
-			mouses[i]->getMouse(pVector[i]->m_Position);
-			mouses[i]->setForce(false);
+			//forces[i]->getMouse(pVector[i]->m_Position);
+			//forces[i]->setForce(false);
 
 			MousePos[0] = x;
 			MousePos[1] = y;
@@ -298,11 +292,18 @@ static void get_mouse_pos()
 				particleSelected = i;
 			}
 
+			//particle is selected
 			if (particleSelected == i)
 			{
-				mouses[i]->getMouse(MousePos);
-				mouses[i]->setForce(true);
-				mouses[i]->apply();
+				forces[i]->getMouse(MousePos);
+				forces[i]->apply();
+				//mouses[i]->getMouse(MousePos);
+				//mouses[i]->setForce(true);
+				//mouses[i]->apply();
+			}
+			else
+			{
+				forces[i]->getMouse(pVector[i]->m_Position);
 			}
 
 		}
@@ -315,8 +316,9 @@ static void get_mouse_pos()
 
 		for (i = 0; i < size; i++)
 		{
-			mouses[i]->getMouse(pVector[i]->m_Position);
-			mouses[i]->setForce(false);
+			forces[i]->getMouse(pVector[i]->m_Position);
+			//mouses[i]->getMouse(pVector[i]->m_Position);
+			//mouses[i]->setForce(false);
 		}
 	}
 }
@@ -421,19 +423,14 @@ static void idle_func ( void )
 {
 	if (dsim)
 	{
+		for_each(forces.begin(), forces.end(), [](Force* f)
+		{
+			f->apply();
+		});
+
 		for_each(rods.begin(), rods.end(), [](RodConstraint* r)
 		{
 			r->apply();
-		});
-
-		for_each(springs.begin(), springs.end(), [](SpringForce* s)
-		{
-			s->apply();
-		});
-
-		for_each(gravity.begin(), gravity.end(), [](Gravity* g)
-		{
-			g->apply();
 		});
 
 		for_each(circles.begin(), circles.end(), [](CircularWireConstraint* c)

@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Particle.h"
+#include "Force.h"
 
-class MouseForce {
+class MouseForce : public Force
+{
 public:
 	MouseForce(Particle *p, Vec2f & Mouse, double ks, double kd);
 
 	void getMouse(const Vec2f & Mouse);
-	void setForce(bool applyForce);
 	void draw();
 	void apply();
 

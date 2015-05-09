@@ -1,5 +1,6 @@
 #include "MouseForce.h"
 #include <glut.h>
+using namespace std;
 
 bool m_setForce = false;
 
@@ -18,12 +19,8 @@ void MouseForce::draw()
 
 void MouseForce::getMouse(const Vec2f & Mouse)
 {
+	cout << "test" << endl;
 	m_mouse = Mouse;
-}
-
-void MouseForce::setForce(bool applyForce)
-{
-	m_setForce = applyForce;
 }
 
 void MouseForce::apply()
