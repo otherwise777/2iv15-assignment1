@@ -1,14 +1,40 @@
-﻿Build started 11-5-2015 11:32:56.
+﻿Build started 15-5-2015 1:16:04.
      1>Project "D:\Documents\GitHub\2iv15-assignment1\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude/ /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Gravity.cpp TinkerToy.cpp
-         TinkerToy.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude/ /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Solver.cpp
+         Solver.cpp
      1>d:\documents\github\2iv15-assignment1\consoleapplication1\include\gfx\vec2.h(96): warning C4005: '_MSC_VER' : macro redefinition
                  command-line arguments :  see previous definition of '_MSC_VER'
-         Gravity.cpp
-     1>d:\documents\github\2iv15-assignment1\consoleapplication1\include\gfx\vec2.h(96): warning C4005: '_MSC_VER' : macro redefinition
-                 command-line arguments :  see previous definition of '_MSC_VER'
-         Generating Code...
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(21): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(29): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(21) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(31): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(21) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(32): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(21) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(51): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(53): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(54): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(59): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(61): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(62): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib/ glut32.lib libpng16.lib zlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\CircularWireConstraint.obj
          Debug\Gravity.obj
@@ -26,4 +52,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.58
+Time Elapsed 00:00:00.98

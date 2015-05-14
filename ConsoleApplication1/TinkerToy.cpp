@@ -99,8 +99,8 @@ static void init_system(void)
 	// circular wire constraint to the first.
 
 	//pVector.push_back(new Particle(Vec2f(0.0, 0.0) + Vec2f(dist, 0.0)));
-	pVector.push_back(new Particle((center - offset), 3.0f));
-	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 2.0f));
+	pVector.push_back(new Particle((center - offset), 2.0f));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.5f));
 	pVector.push_back(new Particle((center + offset), 1.0f));
 
 	// You shoud replace these with a vector generalized forces and one of

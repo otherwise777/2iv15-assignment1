@@ -10,7 +10,7 @@ void Gravity::draw()
 	glColor3f(0, 0, 1);
 	glVertex2f(m_p1->m_Position[0], m_p1->m_Position[1]);
 	glColor3f(0, 0, 1);
-	glVertex2f(m_p1 -> m_Position[0] + g[0], m_p1 -> m_Position[1] + g[1]);
+	glVertex2f(m_p1->m_Position[0] + (g[0] * m_p1->m_mass), m_p1->m_Position[1] + (g[1] * m_p1->m_mass));
 	glEnd();
 }
 
