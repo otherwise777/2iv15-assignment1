@@ -8,16 +8,15 @@ using namespace std;
 
 #define DAMP 0.98f
 #define RAND (((rand()%2000)/1000.f)-1.f)
-void simulation_step( std::vector<Particle*> pVector, std::vector<Force*> forces, float dt )
+void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt, int solver)
 {
-	int solver = 3;
-
 	int i, size = pVector.size();
 
 	//calculate forces
 
 	if (solver == 1)
 	{
+		cout << "euler" << endl;
 		for (int i = 0; i < forces.size(); i++) {
 			forces[i]->apply();
 		}
@@ -35,6 +34,7 @@ void simulation_step( std::vector<Particle*> pVector, std::vector<Force*> forces
 	}
 	else if (solver == 2)
 	{
+		cout << "midpointq" << endl;
 		std::vector<Vec2f> posTemp;
 
 		//save original position
@@ -65,6 +65,7 @@ void simulation_step( std::vector<Particle*> pVector, std::vector<Force*> forces
 	}
 	else if (solver == 3)
 	{
+		cout << "runge" << endl;
 		std::vector<Vec2f> posTemp;
 		std::vector<Vec2f> k1;
 		std::vector<Vec2f> k2;

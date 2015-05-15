@@ -29,7 +29,7 @@ using namespace std;
 /* macros */
 
 /* external definitions (from solver) */
-extern void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt);
+extern void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt, int solver);
 
 /* global variables */
 
@@ -63,6 +63,8 @@ std::vector<Force*> forces;
 
 long long level_elapsed_time = 0;
 long long level_start_time = 0;
+
+int solverMethod = 1;
 
 /*
 ----------------------------------------------------------------------
@@ -281,6 +283,18 @@ static void key_func ( unsigned char key, int x, int y )
 {
 	switch ( key )
 	{
+	case '1':
+		solverMethod = 1;
+		break;
+
+	case '2':
+		solverMethod = 2;
+		break;
+
+	case '3':
+		solverMethod = 3;
+		break;
+
 	case 'c':
 	case 'C':
 		clear_data ();
@@ -328,7 +342,8 @@ static void reshape_func ( int width, int height )
 
 static void idle_func ( void )
 {
-	simulation_step(pVector, forces, dt);
+	//euler = 1, midpoint = 2 and runge-kutta = 3
+	simulation_step(pVector, forces, dt, solverMethod);
 	get_mouse_pos();
 
 	glutSetWindow ( win_id );
