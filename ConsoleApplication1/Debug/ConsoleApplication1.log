@@ -1,4 +1,4 @@
-﻿Build started 15-5-2015 1:16:04.
+﻿Build started 15-5-2015 2:18:14.
      1>Project "D:\Documents\GitHub\2iv15-assignment1\ConsoleApplication1\ConsoleApplication1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude/ /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Solver.cpp
@@ -16,24 +16,76 @@
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(21) : definition of 'i' ignored
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
      1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(51): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(50): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(52): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
      1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(53): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
-     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(54): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(46) : definition of 'i' ignored
-                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
      1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(59): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
-                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
-     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(61): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(60): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
      1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(62): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(63): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(56) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(84): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(88): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(84) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(90): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(84) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(91): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(84) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(92): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(84) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(95): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(99): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(95) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(101): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(95) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(102): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(95) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(103): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(95) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(106): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(110): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(106) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(112): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(106) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(113): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(106) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(114): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(106) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(117): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(121): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(117) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(123): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(117) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(124): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(117) : definition of 'i' ignored
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
+     1>d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(125): warning C4258: 'i' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(117) : definition of 'i' ignored
                  d:\documents\github\2iv15-assignment1\consoleapplication1\solver.cpp(15) : definition of 'i' used
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib/ glut32.lib libpng16.lib zlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\CircularWireConstraint.obj
@@ -52,4 +104,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.98
+Time Elapsed 00:00:00.88
