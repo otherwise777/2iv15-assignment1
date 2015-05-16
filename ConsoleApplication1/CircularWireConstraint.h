@@ -3,6 +3,7 @@
 #include "Particle.h"
 #include "Force.h"
 #include <vector>
+using namespace std;
 
 class CircularWireConstraint : public Force
 {
@@ -13,6 +14,8 @@ class CircularWireConstraint : public Force
   void apply();
   float getC();
   float getCDot();
+  vector<Vec2f> getJacobian();
+  vector<Vec2f> getJacobianDot();
  private:
 
   Particle * const m_p;

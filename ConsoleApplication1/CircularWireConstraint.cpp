@@ -38,10 +38,8 @@ void CircularWireConstraint::apply()
 
 	float C = getC();
 	float CDot = getCDot();
-
-	vector<Vec2f> Jacobian = getJ();
-
-	cout << Jacobian[0] << endl;
+	//matrix W is the matrix with the masses of all the particles on the Identity it's size is 2n*2n
+	//vector<vector<int>> matrix = vector<vector<int>>(n, vector<int>(n, 0));
 
 	Vec2f force_p1 = (posdif / posLength)*((m_ks * (posLength - m_radius)) + (m_kd * (dotProduct / posLength)));
 
@@ -61,8 +59,25 @@ float CircularWireConstraint::getC(){
 //CDot = 2*(x-xc)*vx + 2*(y-yc)*vy - 0
 //CDot = 2*((x-xc)*vx + (y-yc)*vy)
 float CircularWireConstraint::getCDot(){
-	Vec2f xVector = 2*(m_p->m_Position - m_center);
-	Vec2f veldif = 2*(m_p->m_Velocity);
-	float dotProduct = vecDotNew(xVector, veldif);
+	Vec2f xVector = (m_p->m_Position - m_center);
+	Vec2f veldif = (m_p->m_Velocity);
+	float dotProduct = vecDotNew(2*xVector, 2*veldif);
 	return dotProduct;
+}
+
+//we only have an x and y for the jacobian, so the jacobian will be a vector array with a single vector
+//J = (dC/dx), (dC/dy)
+vector<Vec2f> CircularWireConstraint::getJacobian(){
+	vector<Vec2f> result;
+	Vec2f xVector = (m_p->m_Position - m_center);
+	Vec2f veldif = (m_p->m_Velocity);
+	result.push_back({ 2 * (xVector[0]*veldif[0]), 2 * (xVector[1]*veldif[1]) });
+	return result;
+}
+
+vector<Vec2f> CircularWireConstraint::getJacobianDot(){
+	vector<Vec2f> result;
+	Vec2f veldif = (m_p->m_Velocity);
+	result.push_back({ 2 * veldif[0], 2 * veldif[1] });
+	return result;
 }

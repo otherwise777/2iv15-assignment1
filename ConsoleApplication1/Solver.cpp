@@ -10,8 +10,8 @@ using namespace std;
 #define RAND (((rand()%2000)/1000.f)-1.f)
 void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt, int solver)
 {
-	int i, size = pVector.size();
 
+	int i, size = pVector.size();
 	if (solver == 1)
 	{
 		//calculate forces
@@ -122,5 +122,29 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 			pVector[i]->m_Position = posTemp[i] + (dt / 6)*(k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
 		}
 	}
+	DoConstraint(pVector);
 }
 
+void DoConstraint(std::vector<Particle*> pVector)
+{
+	int i, size = pVector.size();
+	//the matrices M, which has the size 2n*2n, where n is the number of particles.
+	//on the identity is the mass of the particle, so [m1, m1, m2, m2, .... , mn, mn]
+	//W is the matrix also with size 2n*2n, where the inverse of the mass is the identity.
+	vector<vector<int>> W = vector<vector<int>>(2 * size, vector<int>(2 * size, 0));
+	vector<vector<int>> M = vector<vector<int>>(2 * size, vector<int>(2 * size, 0));
+	for (int i = 0; i < size; i++)
+	{
+		M[i * 2 + 0][i * 2 + 0] = pVector[i]->m_mass;
+		M[i * 2 + 1][i * 2 + 1] = pVector[i]->m_mass;
+		W[i * 2 + 0][i * 2 + 0] = 1 / pVector[i]->m_mass;
+		W[i * 2 + 1][i * 2 + 1] = 1 / pVector[i]->m_mass;
+	}
+
+	vector<int> C = vector<int>(size);
+	for (int i = 0; i < size; i++)
+	{
+		C[i] = 1;
+	}
+
+}
