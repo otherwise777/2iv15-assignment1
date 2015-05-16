@@ -29,7 +29,7 @@ using namespace std;
 /* macros */
 
 /* external definitions (from solver) */
-extern void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt, int solver);
+extern void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, std::vector<Constraint*> constraints, float dt, int solver);
 
 /* global variables */
 
@@ -60,6 +60,7 @@ std::list<LineWireConstraint*> lines;
 
 std::vector<MouseForce*> mouses;
 std::vector<Force*> forces;
+std::vector<Constraint*> constraints;
 
 long long level_elapsed_time = 0;
 long long level_start_time = 0;
@@ -101,9 +102,9 @@ static void init_system(void)
 	// circular wire constraint to the first.
 
 	//pVector.push_back(new Particle(Vec2f(0.0, 0.0) + Vec2f(dist, 0.0)));
-	pVector.push_back(new Particle((center - offset), 1.0f));
-	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f));
-	pVector.push_back(new Particle((center + offset), 1.0f));
+	pVector.push_back(new Particle((center - offset), 1.0f, 0));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f, 1));
+	pVector.push_back(new Particle((center + offset), 1.0f, 2));
 
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
@@ -123,7 +124,7 @@ static void init_system(void)
 	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
-	forces.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.4), 0.1));
+	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.4), 0.1));
 }
 
 /*
@@ -343,7 +344,7 @@ static void reshape_func ( int width, int height )
 static void idle_func ( void )
 {
 	//euler = 1, midpoint = 2 and runge-kutta = 3
-	simulation_step(pVector, forces, dt, solverMethod);
+	simulation_step(pVector, forces, constraints, dt, solverMethod);
 	get_mouse_pos();
 
 	glutSetWindow ( win_id );

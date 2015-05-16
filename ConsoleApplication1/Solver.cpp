@@ -6,9 +6,11 @@
 #include <list>
 using namespace std;
 
+void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> constraints);
+
 #define DAMP 0.98f
 #define RAND (((rand()%2000)/1000.f)-1.f)
-void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, float dt, int solver)
+void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, std::vector<Constraint*> constraints, float dt, int solver)
 {
 
 	int i, size = pVector.size();
@@ -122,10 +124,10 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 			pVector[i]->m_Position = posTemp[i] + (dt / 6)*(k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
 		}
 	}
-	DoConstraint(pVector);
+	DoConstraint(pVector, constraints);
 }
 
-void DoConstraint(std::vector<Particle*> pVector)
+static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> constraints)
 {
 	int i, size = pVector.size();
 	//the matrices M, which has the size 2n*2n, where n is the number of particles.
@@ -141,10 +143,58 @@ void DoConstraint(std::vector<Particle*> pVector)
 		W[i * 2 + 1][i * 2 + 1] = 1 / pVector[i]->m_mass;
 	}
 
-	vector<int> C = vector<int>(size);
-	for (int i = 0; i < size; i++)
+	vector<int> C = vector<int>(constraints.size());
+	vector<int> CDot = vector<int>(constraints.size());
+	for (int i = 0; i < constraints.size(); i++)
 	{
-		C[i] = 1;
+		C[i] = constraints[i]->getC();
+		CDot[i] = constraints[i]->getCDot();
 	}
 
+	//initialize the Jacobian Matrix
+	vector<vector<float>> J = vector<vector<float>>(constraints.size(), vector<float>(2 * size));
+	for (int i = 0; i < constraints.size(); i++) {
+		for (int j = 0; j < 2*size; j++) {
+			J[i][j] = 0;
+		}
+	}
+	
+	//create the Jacobian Matrix
+	for (int i = 0; i < constraints.size(); i++) {
+		vector<Vec2f> jac = constraints[i]->getJacobian();
+		vector<Particle*> particle = constraints[i]->getParticles();
+		for (int j = 0; j < particle.size(); j++) {
+			for (int k = 0; k < 2; k++) {
+				J[i][particle[j] -> getParticleID() *2 + k] = jac[j][k];
+			}
+		}
+	}
+
+	//Make Jdot
+	vector<vector<float>> Jdot(constraints.size(), vector<float>(2*size));
+	for (int i = 0; i < constraints.size(); i++) {
+		for (int j = 0; j < 2*size; j++) {
+			Jdot[i][j] = 0;
+		}
+	}
+
+	for (int i = 0; i < constraints.size(); i++) {
+		vector<Vec2f> jacDot = constraints[i]->getJacobianDot();
+		vector<Particle*> particle = constraints[i]->getParticles();
+		for (int j = 0; j < particle.size(); j++) {
+			for (int k = 0; k < 2; k++) {
+				Jdot[i][particle[j]->getParticleID() * 2 + k] = jacDot[j][k];
+			}
+		}
+	}
+
+	//Make Jt
+	vector< vector<float>> Jt = vector< vector<float>>((2*size), vector<float>(constraints.size()));
+	for (int i = 0; i<constraints.size(); i++) {
+		for (int j = 0; j < 2*size; j++){
+			Jt[j][i] = J[i][j];
+		}
+	}
+
+	vector<vector<float>> JW;
 }

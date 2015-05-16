@@ -6,15 +6,17 @@ class Particle
 {
 public:
 
-	Particle(const Vec2f & ConstructPos, float mass);
+	Particle(const Vec2f & ConstructPos, float mass, int ID);
 	virtual ~Particle(void);
 
 	void reset();
 	void draw();
+	int getParticleID();
 
 	Vec2f m_ConstructPos;
 	Vec2f m_Position;
 	Vec2f m_Velocity;
 	Vec2f m_Force;
 	float m_mass;
+	int m_ID;
 };

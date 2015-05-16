@@ -1,8 +1,8 @@
 #include "Particle.h"
 #include <glut.h>
 
-Particle::Particle(const Vec2f & ConstructPos, float mass) :
-m_ConstructPos(ConstructPos), m_Position(Vec2f(0.0, 0.0)), m_Velocity(Vec2f(0.0, 0.0)), m_mass(mass)
+Particle::Particle(const Vec2f & ConstructPos, float mass, int ID) :
+m_ConstructPos(ConstructPos), m_Position(Vec2f(0.0, 0.0)), m_ID(ID), m_Velocity(Vec2f(0.0, 0.0)), m_mass(mass)
 {
 }
 
@@ -10,6 +10,10 @@ Particle::~Particle(void)
 {
 }
 
+int Particle::getParticleID()
+{
+	return m_ID;
+}
 
 void Particle::reset()
 {

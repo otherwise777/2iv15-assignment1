@@ -1,6 +1,7 @@
 #include "include/gfx/vec2.h"
 #include "Particle.h"
 #include "Force.h"
+#include "Constraint.h"
 
 class Gravity : public Force
 {

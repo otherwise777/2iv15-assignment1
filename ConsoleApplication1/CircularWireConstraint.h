@@ -1,21 +1,21 @@
 #pragma once
 
 #include "Particle.h"
-#include "Force.h"
+#include "Constraint.h"
 #include <vector>
 using namespace std;
 
-class CircularWireConstraint : public Force
+class CircularWireConstraint : public Constraint
 {
  public:
   CircularWireConstraint(Particle *p, const Vec2f & center, const double radius);
 
   void draw();
-  void apply();
   float getC();
   float getCDot();
   vector<Vec2f> getJacobian();
   vector<Vec2f> getJacobianDot();
+  std::vector<Particle*> getParticles();
  private:
 
   Particle * const m_p;
