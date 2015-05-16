@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-
+#include "include/gfx/vec2.h"
 // Karen's CGD
 
 #define MAX_STEPS 100
@@ -44,6 +44,7 @@ void vecDiffEqual(int n, double r[], double v[]);
 void vecAssign(int n, double v1[], double v2[]);
 void vecTimesScalar(int n, double v[], double s);
 double vecDot(int n, double v1[], double v2[]);
+float vecDotNew(Vec2f first, Vec2f second);
 double vecSqrLen(int n, double v[]);
 
 #endif

@@ -10,6 +10,8 @@ class RodConstraint : public Force
 
   void draw();
   void apply();
+  float getC();
+  float getCDot();
 
  private:
 

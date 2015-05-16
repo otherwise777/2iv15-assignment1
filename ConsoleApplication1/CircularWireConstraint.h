@@ -2,6 +2,7 @@
 
 #include "Particle.h"
 #include "Force.h"
+#include <vector>
 
 class CircularWireConstraint : public Force
 {
@@ -10,7 +11,8 @@ class CircularWireConstraint : public Force
 
   void draw();
   void apply();
-
+  float getC();
+  float getCDot();
  private:
 
   Particle * const m_p;

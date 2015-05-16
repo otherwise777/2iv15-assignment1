@@ -1,5 +1,9 @@
 #include "linearSolver.h"
-
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+#include <glut.h>
 // vector helper functions
 
 void vecAddEqual(int n, double r[], double v[])
@@ -24,6 +28,11 @@ void vecTimesScalar(int n, double v[], double s)
 {
   for (int i = 0; i < n; i++)
     v[i] *= s;
+}
+
+float vecDotNew(Vec2f first, Vec2f second)
+{
+	return first[0] * second[0] + first[1] * second[1];
 }
 
 double vecDot(int n, double v1[], double v2[])
