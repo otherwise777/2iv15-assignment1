@@ -4,6 +4,7 @@
 #include "Gravity.h"
 #include <iostream>
 #include <list>
+#include "linearSolver.h"
 using namespace std;
 
 void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> constraints);
@@ -133,8 +134,8 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 	//the matrices M, which has the size 2n*2n, where n is the number of particles.
 	//on the identity is the mass of the particle, so [m1, m1, m2, m2, .... , mn, mn]
 	//W is the matrix also with size 2n*2n, where the inverse of the mass is the identity.
-	vector<vector<int>> W = vector<vector<int>>(2 * size, vector<int>(2 * size, 0));
-	vector<vector<int>> M = vector<vector<int>>(2 * size, vector<int>(2 * size, 0));
+	vector<vector<float>> W = vector<vector<float>>(2 * size, vector<float>(2 * size, 0));
+	vector<vector<float>> M = vector<vector<float>>(2 * size, vector<float>(2 * size, 0));
 	for (int i = 0; i < size; i++)
 	{
 		M[i * 2 + 0][i * 2 + 0] = pVector[i]->m_mass;
@@ -188,13 +189,35 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 		}
 	}
 
-	//Make Jt
-	vector< vector<float>> Jt = vector< vector<float>>((2*size), vector<float>(constraints.size()));
+	//Make JT
+	vector< vector<float>> JT = vector< vector<float>>((2*size), vector<float>(constraints.size()));
 	for (int i = 0; i<constraints.size(); i++) {
 		for (int j = 0; j < 2*size; j++){
-			Jt[j][i] = J[i][j];
+			JT[j][i] = J[i][j];
 		}
 	}
 
-	vector<vector<float>> JW;
+	vector<vector<float>> JW = vector<vector<float>>(J.size(), vector<float>(W[0].size()));
+	JW = VectorMultiplication(J, W);
+	vector<vector<float>> JWJT = vector<vector<float>>(JW.size(), vector<float>(JT[0].size()));
+	JWJT = VectorMultiplication(JW, JT);
+
+	//Make QDot
+	vector<float>QDot = vector<float>(2*size);
+	for (unsigned i = 0; i < size; i++) {
+		for (int j = 0; j < 2; j++) {
+			QDot[2*i + j] = pVector[i]->m_Velocity[j];
+		}
+	}
+
+	//Make Q
+	vector<float>Q = vector<float>(2 * size);
+	for (unsigned i = 0; i < size; i++) {
+		for (int j = 0; j < 2; j++) {
+			Q[2*i + j] = pVector[i]->m_Force[j];
+		}
+	}
+
+
+
 }

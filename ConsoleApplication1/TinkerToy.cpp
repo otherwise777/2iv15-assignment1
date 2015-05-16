@@ -125,6 +125,7 @@ static void init_system(void)
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
 	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.4), 0.1));
+	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.4), 0.1));
 }
 
 /*

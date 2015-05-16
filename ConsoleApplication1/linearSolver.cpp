@@ -30,6 +30,26 @@ void vecTimesScalar(int n, double v[], double s)
     v[i] *= s;
 }
 
+vector< vector<float> > VectorMultiplication(vector< vector<float> > A, vector< vector<float> > B)
+{
+	if (A[0].size() != B.size()) 
+	{
+		//the sizes are wrong, just an error message and no break because we assume correct sizes
+		cout << "ERROR!!!!" << endl;
+	}
+	vector<vector<float>> Result = vector<vector<float>>(A.size(), vector<float>(B[0].size()));
+	for (int i = 0; i < A.size(); i++) {
+		for (int j = 0; j < B[0].size(); j++) {
+			Result[i][j] = 0;
+			for (int k = 0; k < A[0].size(); k++)
+			{
+				Result[i][j] = Result[i][j] + A[i][k] * B[k][j];
+			}
+		}
+	}
+	return Result;
+}
+
 float vecDotNew(Vec2f first, Vec2f second)
 {
 	return first[0] * second[0] + first[1] * second[1];

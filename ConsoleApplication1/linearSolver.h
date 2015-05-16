@@ -6,6 +6,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "include/gfx/vec2.h"
+#include <vector>
+using namespace std;
 // Karen's CGD
 
 #define MAX_STEPS 100
@@ -45,6 +47,7 @@ void vecAssign(int n, double v1[], double v2[]);
 void vecTimesScalar(int n, double v[], double s);
 double vecDot(int n, double v1[], double v2[]);
 float vecDotNew(Vec2f first, Vec2f second);
+vector<vector<float>> VectorMultiplication(vector<vector<float>> A, vector<vector<float>> B);
 double vecSqrLen(int n, double v[]);
 
 #endif
