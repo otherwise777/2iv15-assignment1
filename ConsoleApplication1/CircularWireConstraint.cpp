@@ -29,7 +29,8 @@ void CircularWireConstraint::draw()
 // return the c: C(x, y) = (x - xc)^2 + (y - yc)^2 - r^2
 float CircularWireConstraint::getC(){
 	Vec2f posdif = (m_p->m_Position - m_center);
-	return (posdif[0]*posdif[0] + posdif[1]*posdif[1] - m_radius*m_radius);
+	float C = (posdif[0] * posdif[0] + posdif[1] * posdif[1] - m_radius*m_radius);
+	return C;
 }
 
 //from the slides C = 1/2(x.x-1) =  (1/2)x.(1/2)x-(1/2)
@@ -39,28 +40,32 @@ float CircularWireConstraint::getC(){
 //CDot = 2*(x-xc)*vx + 2*(y-yc)*vy - 0
 //CDot = 2*((x-xc)*vx + (y-yc)*vy)
 float CircularWireConstraint::getCDot(){
-	Vec2f xVector = (m_p->m_Position - m_center);
+	Vec2f posdif = (m_p->m_Position - m_center);
 	Vec2f veldif = (m_p->m_Velocity);
-	float dotProduct = vecDotNew(2*xVector, 2*veldif);
-	return dotProduct;
+	float CDot = vecDotNew(2 * posdif, 2 * veldif);
+	return CDot;
 }
 
-//return J, if there are more use same order as particle
-vector<Vec2f> CircularWireConstraint::getJ(){
-	vector<Vec2f> result;
-	result.push_back(Vec2f(2 * (m_p->m_Position[0] - m_center[0]), 2 * (m_p->m_Position[1] - m_center[1])));
-	return result;
+vector<Vec2f> CircularWireConstraint::getJacobian(){
+	//a vector, only 1 now, might implement multiple particles
+	vector<Vec2f> J;
+	Vec2f posdif = (m_p->m_Position - m_center);
+	Vec2f veldif = (m_p->m_Velocity);
+	J.push_back(Vec2f(2 * posdif[0], 2 * posdif[1]));
+	return J;
 }
 
 //return Jdot, if there are more use same order as particle
-vector<Vec2f> CircularWireConstraint::getJdot(){
-	vector<Vec2f> result;
-	result.push_back(Vec2f(2 * m_p->m_Velocity[0], 2 * m_p->m_Velocity[1]));
-	return result;
+vector<Vec2f> CircularWireConstraint::getJacobianDot(){
+	vector<Vec2f> JDot;
+	Vec2f veldif = (m_p->m_Velocity);
+	JDot.push_back(Vec2f(2 * veldif[0], 2 * veldif[1]));
+	return JDot;
 }
 
-vector<Particle> CircularWireConstraint::getParticles(){
-	vector<Particle> result;
-	result.push_back(*m_p);
+vector<Particle*> CircularWireConstraint::getParticles(){
+	//only 1 here, but might implement ability for more
+	vector<Particle*> result;
+	result.push_back(m_p);
 	return result;
 }

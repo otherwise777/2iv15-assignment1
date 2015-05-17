@@ -12,7 +12,7 @@ public:
 	virtual void draw() = 0;
 	virtual float getC() = 0;
 	virtual float getCDot() = 0;
-	virtual vector<Vec2f> getJ() = 0;
-	virtual vector<Vec2f> getJdot() = 0;
-	virtual vector<Particle> getParticles() = 0;
+	virtual vector<Vec2f> getJacobian() = 0;
+	virtual vector<Vec2f> getJacobianDot() = 0;
+	virtual vector<Particle*> getParticles() = 0;
 };

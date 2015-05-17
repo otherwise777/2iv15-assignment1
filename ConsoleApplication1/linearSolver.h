@@ -61,15 +61,11 @@ void vecAssign(int n, double v1[], double v2[]);
 void vecTimesScalar(int n, double v[], double s);
 double vecDot(int n, double v1[], double v2[]);
 float vecDotNew(Vec2f first, Vec2f second);
-vector<vector<float>> mul(vector< vector<float> > A, vector< vector<float> > B);
-vector<float> diffEqual(vector<float> r, vector<float> v);
-vector<float> timesScalar(vector<float> r, float s);
-vector<float> vecmul(vector< vector<float> > A, vector<float>  B);
 vector<vector<float>> VectorMultiplication(vector<vector<float>> A, vector<vector<float>> B);
 vector<float> VectorMultiplication(vector< vector<float> > A, vector<float>  B);
 vector<vector<float>> VectorScalarMultiplication(vector<vector<float>> A, float scalar);
 vector<float> VectorScalarMultiplication(vector<float> A, float scalar);
-vector<float> VectorSubtraction(vector<float> A, vector<float> B, vector<float> C, vector<float> D);
+vector<float> VectorSubtraction(vector<float> A, vector<float> B);
 double vecSqrLen(int n, double v[]);
 
 #endif

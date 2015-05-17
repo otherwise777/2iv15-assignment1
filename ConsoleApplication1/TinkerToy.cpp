@@ -116,7 +116,7 @@ static void init_system(void)
 
 	for (i = 0; i<size; i++)
 	{
-		mouses.push_back(new MouseForce(pVector[i], pVector[i]->m_Velocity, 1.0, 1.0));
+		mouses.push_back(new MouseForce(pVector[i], pVector[i]->m_Velocity, 0.5, 0.5));
 	}
 
 	for (i = 0; i<size; i++)
@@ -124,10 +124,10 @@ static void init_system(void)
 		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
 	}
 
-	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
+	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
-	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(-0.1, 0.0), 0.5));
+	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(-0.1, 0.0), 0.3));
 	constraints.push_back(new CircularWireConstraint(pVector[2], Vec2f(-0.1, 0.0), 0.5));
 }
 

@@ -96,7 +96,7 @@ vector<float> VectorScalarMultiplication(vector<float> A, float scalar)
 	return Result;
 }
 
-vector<float> VectorSubtraction(vector<float> A, vector<float> B, vector<float> C, vector<float> D)
+vector<float> VectorSubtraction(vector<float> A, vector<float> B)
 {
 	if (A.size() != B.size())
 	{
@@ -115,64 +115,6 @@ vector<float> VectorSubtraction(vector<float> A, vector<float> B, vector<float> 
 float vecDotNew(Vec2f first, Vec2f second)
 {
 	return first[0] * second[0] + first[1] * second[1];
-}
-
-/*
-* Return A*B
-*/
-vector< vector<float> > mul(vector< vector<float> > A, vector< vector<float> > B) {
-
-	if (A[0].size() != B.size()) {
-		printf("Error: Matrix multiplication dimension does not match! \n");
-		exit(1); //error!
-	}
-	vector< vector<float> > R(A.size(), vector<float>(B[0].size()));
-
-	for (unsigned i = 0; i<A.size(); i++) {
-		for (unsigned j = 0; j<B[0].size(); j++) {
-			R[i][j] = 0;
-			for (unsigned k = 0; k<A[0].size(); k++)
-				R[i][j] += A[i][k] * B[k][j];
-		}
-	}
-
-	return R;
-}
-
-vector<float> diffEqual(vector<float> r, vector<float> v)
-{
-	vector<float> result(r.size());
-	for (unsigned i = 0; i < r.size(); i++){
-		result[i] = r[i] - v[i];
-	}
-	return result;
-}
-
-vector<float> timesScalar(vector<float> r, float s)
-{
-	vector<float> result(r.size());
-	for (unsigned i = 0; i < r.size(); i++){
-		result[i] = r[i] * s;
-	}
-	return result;
-}
-
-vector<float>  vecmul(vector< vector<float> > A, vector<float>  B) {
-
-	if (A[0].size() != B.size()) {
-		printf("Error: Matrix multiplication dimension does not match! \n");
-		exit(1); //error!
-	}
-	vector<float>  R(A.size());
-
-	for (unsigned i = 0; i<A.size(); i++) {
-		R[i] = 0;
-		for (unsigned k = 0; k<B.size(); k++)
-			R[i] += A[i][k] * B[k];
-	}
-
-
-	return R;
 }
 
 double vecDot(int n, double v1[], double v2[])
