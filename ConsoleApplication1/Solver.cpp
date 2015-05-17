@@ -13,11 +13,6 @@ void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> const
 #define RAND (((rand()%2000)/1000.f)-1.f)
 void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, std::vector<Constraint*> constraints, float dt, int solver)
 {
-	for (int i = 0; i < pVector.size(); i++) {
-		pVector[i]->m_Force[0] = 0;
-		pVector[i]->m_Force[1] = 0;
-	}
-	DoConstraint(pVector, constraints);
 
 	int i, size = pVector.size();
 	if (solver == 1)
@@ -26,6 +21,9 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 		for (int i = 0; i < forces.size(); i++) {
 			forces[i]->apply();
 		}
+
+		DoConstraint(pVector, constraints);
+
 		//F= m*a
 		//a = F/m
 		//V= a*t
@@ -134,8 +132,6 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 
 static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> constraints)
 {
-
-
 	int i, size = pVector.size();
 	float ks = 1.0;
 	float kd = 1.0;
@@ -208,7 +204,7 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 	vector<vector<float>> JW = vector<vector<float>>(J.size(), vector<float>(W[0].size()));
 	JW = VectorMultiplication(J, W);
 	vector<vector<float>> JWJT = vector<vector<float>>(JW.size(), vector<float>(JT[0].size()));
-	JWJT = VectorMultiplication(JW, JT);
+ 	JWJT = VectorMultiplication(JW, JT);
 
 	//Make q
 	vector<float>q = vector<float>(2 * size);
@@ -241,16 +237,17 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 	vector<float> JWQ = vector<float>(Q.size());
 	JWQ = VectorMultiplication(JW, Q);
 
+
 	vector<float> CStrength = vector<float>(constraints.size());
 	vector<float> CDotDamping = vector<float>(constraints.size());
 
+	cout << "qdotsize: " << CStrength.size() << " Q size: " << CDotDamping.size() << endl;
+
 	CStrength = VectorScalarMultiplication(C, ks);
-	CDotDamping = VectorScalarMultiplication(CDot, kd);
+ 	CDotDamping = VectorScalarMultiplication(CDot, kd);
 
 	vector<float> JWJTLambda = vector<float>(constraints.size());
-	JWJTLambda = VectorSubtraction(JDotq, JWQ);
-	JWJTLambda = VectorSubtraction(JWJTLambda, CStrength);
-	JWJTLambda = VectorSubtraction(JWJTLambda, CDotDamping);
+	JWJTLambda = VectorSubtraction(JDotq, JWQ, CStrength, CDotDamping);
 
 	double* JWJTLambdaDouble = new double[JWJTLambda.size()];
 	for (int i = 0; i < JWJTLambda.size(); i++)
@@ -281,6 +278,8 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < 2; j++) {
 			pVector[i]->m_Force[j] += QHat[2 * i + j];
+			pVector[i]->m_Velocity[j] += ((pVector[i]->m_Force[j] * 0.1) / pVector[i]->m_mass);
+			pVector[i]->m_Position += pVector[i]->m_Velocity * 0.1;
 		}
 	}
 }

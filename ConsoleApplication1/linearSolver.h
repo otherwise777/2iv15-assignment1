@@ -65,7 +65,7 @@ vector<vector<float>> VectorMultiplication(vector<vector<float>> A, vector<vecto
 vector<float> VectorMultiplication(vector< vector<float> > A, vector<float>  B);
 vector<vector<float>> VectorScalarMultiplication(vector<vector<float>> A, float scalar);
 vector<float> VectorScalarMultiplication(vector<float> A, float scalar);
-vector<float> VectorSubtraction(vector<float> A, vector<float> B);
+vector<float> VectorSubtraction(vector<float> A, vector<float> B, vector<float> C, vector<float> D);
 double vecSqrLen(int n, double v[]);
 
 #endif

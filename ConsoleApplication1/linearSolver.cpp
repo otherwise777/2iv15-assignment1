@@ -96,7 +96,7 @@ vector<float> VectorScalarMultiplication(vector<float> A, float scalar)
 	return Result;
 }
 
-vector<float> VectorSubtraction(vector<float> A, vector<float> B)
+vector<float> VectorSubtraction(vector<float> A, vector<float> B, vector<float> C, vector<float> D)
 {
 	if (A.size() != B.size())
 	{
