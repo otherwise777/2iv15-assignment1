@@ -1,4 +1,4 @@
-#include "Particle.h"
+﻿#include "Particle.h"
 #include <vector>
 #include <algorithm>
 #include "Gravity.h"
@@ -13,6 +13,11 @@ void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> const
 #define RAND (((rand()%2000)/1000.f)-1.f)
 void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces, std::vector<Constraint*> constraints, float dt, int solver)
 {
+	for (int i = 0; i < pVector.size(); i++) 
+	{
+		pVector[i]->m_Force[0] = 0;
+		pVector[i]->m_Force[1] = 0;
+	}
 
 	int i, size = pVector.size();
 	if (solver == 1)
@@ -21,9 +26,7 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 		for (int i = 0; i < forces.size(); i++) {
 			forces[i]->apply();
 		}
-
 		DoConstraint(pVector, constraints);
-
 		//F= m*a
 		//a = F/m
 		//V= a*t
@@ -132,122 +135,77 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 
 static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*> constraints)
 {
-	int i, size = pVector.size();
-	float ks = 1.0;
-	float kd = 1.0;
-	//the matrices M, which has the size 2n*2n, where n is the number of particles.
-	//on the identity is the mass of the particle, so [m1, m1, m2, m2, .... , mn, mn]
-	//W is the matrix also with size 2n*2n, where the inverse of the mass is the identity.
-	vector<vector<float>> W = vector<vector<float>>(2 * size, vector<float>(2 * size, 0));
-	vector<vector<float>> M = vector<vector<float>>(2 * size, vector<float>(2 * size, 0));
-	for (int i = 0; i < size; i++)
+	if (constraints.size() == 0 || pVector.size() == 0){
+		return;
+	}
+
+	int n = 2;
+	float ks = 30.0f;
+	float kd = 2.0f;
+
+	vector<vector<float>> W = vector<vector<float>>(2 * pVector.size(), vector<float>(2 * pVector.size(), 0));
+	vector<vector<float>> M = vector<vector<float>>(2 * pVector.size(), vector<float>(2 * pVector.size(), 0));
+	vector<float>q = vector<float>(pVector.size()*n);
+	vector<float>qDot = vector<float>(pVector.size()*n);
+	vector<float>Q = vector<float>(pVector.size()*n);
+	for (int i = 0; i < pVector.size(); i++)
 	{
 		M[i * 2 + 0][i * 2 + 0] = pVector[i]->m_mass;
 		M[i * 2 + 1][i * 2 + 1] = pVector[i]->m_mass;
 		W[i * 2 + 0][i * 2 + 0] = 1 / pVector[i]->m_mass;
 		W[i * 2 + 1][i * 2 + 1] = 1 / pVector[i]->m_mass;
+		q[i * 2 + 0] = pVector[i]->m_Position[0];
+		q[i * 2 + 1] = pVector[i]->m_Position[1];
+		qDot[i * 2 + 0] = pVector[i]->m_Velocity[0];
+		qDot[i * 2 + 1] = pVector[i]->m_Velocity[1];
+		Q[i * 2 + 0] = pVector[i]->m_Force[0];
+		Q[i * 2 + 1] = pVector[i]->m_Force[1];
 	}
 
-	vector<float> C = vector<float>(constraints.size());
-	vector<float> CDot = vector<float>(constraints.size());
-	for (int i = 0; i < constraints.size(); i++)
-	{
+	//Make C
+	vector<float>C = vector<float>(constraints.size());
+	vector<float>CDot = vector<float>(constraints.size());
+	for (int i = 0; i < constraints.size(); i++) {
 		C[i] = constraints[i]->getC();
 		CDot[i] = constraints[i]->getCDot();
 	}
 
-	//initialize the Jacobian Matrix
-	vector<vector<float>> J = vector<vector<float>>(constraints.size(), vector<float>(2 * size));
-	for (int i = 0; i < constraints.size(); i++) {
-		for (int j = 0; j < 2*size; j++) {
-			J[i][j] = 0;
-		}
-	}
-	
-	//create the Jacobian Matrix
+	vector<vector<float>> J = vector<vector<float>>(constraints.size(), vector<float>(pVector.size()*n));
+	vector<vector<float>> JDot = vector<vector<float>>(constraints.size(), vector<float>(pVector.size()*n));
+	vector<vector<float>> JT = vector<vector<float>>((pVector.size()*n), vector<float>(constraints.size()));
 	for (int i = 0; i < constraints.size(); i++) {
 		vector<Vec2f> jac = constraints[i]->getJacobian();
-		vector<Particle*> particle = constraints[i]->getParticles();
-		for (int j = 0; j < particle.size(); j++) {
-			for (int k = 0; k < 2; k++) {
-				J[i][particle[j] -> getParticleID() *2 + k] = jac[j][k];
-			}
-		}
-	}
-
-	//Make JDot
-	vector<vector<float>> JDot(constraints.size(), vector<float>(2*size));
-	for (int i = 0; i < constraints.size(); i++) {
-		for (int j = 0; j < 2*size; j++) {
-			JDot[i][j] = 0;
-		}
-	}
-
-	for (int i = 0; i < constraints.size(); i++) {
 		vector<Vec2f> jacDot = constraints[i]->getJacobianDot();
-		vector<Particle*> particle = constraints[i]->getParticles();
-		for (int j = 0; j < particle.size(); j++) {
-			for (int k = 0; k < 2; k++) {
-				JDot[i][particle[j]->getParticleID() * 2 + k] = jacDot[j][k];
+		vector<Particle*> particles = constraints[i]->getParticles();
+		for (int j = 0; j < particles.size(); j++) {
+			for (int k = 0; k < n; k++) {
+				J[i][particles[j]->getParticleID()*n + k] = jac[j][k];
+				JT[particles[j]->getParticleID()*n + k][i] = jac[j][k];
+				JDot[i][particles[j]->getParticleID()*n + k] = jacDot[j][k];
 			}
 		}
 	}
 
-	//Make JT
-	vector< vector<float>> JT = vector< vector<float>>((2*size), vector<float>(constraints.size()));
-	for (int i = 0; i < constraints.size(); i++) {
-		for (int j = 0; j < constraints.size(); j++){
-			JT[j][i] = J[i][j];
-		}
-	}
-
-	vector<vector<float>> JW = vector<vector<float>>(J.size(), vector<float>(W[0].size()));
+	vector<vector<float>>JW = vector<vector<float>>(constraints.size(), vector<float>(pVector.size()*n));
+	vector<vector<float>>JWJT = vector<vector<float>>(constraints.size(), vector<float>(pVector.size()*n));
 	JW = VectorMultiplication(J, W);
-	vector<vector<float>> JWJT = vector<vector<float>>(JW.size(), vector<float>(JT[0].size()));
- 	JWJT = VectorMultiplication(JW, JT);
+	JWJT = VectorMultiplication(JW, JT);
 
-	//Make q
-	vector<float>q = vector<float>(2 * size);
-	for (unsigned i = 0; i < size; i++) {
-		for (int j = 0; j < 2; j++) {
-			q[2 * i + j] = pVector[i]->m_Position[j];
-		}
-	}
-
-	//Make qDot
-	vector<float>qDot = vector<float>(2*size);
-	for (unsigned i = 0; i < size; i++) {
-		for (int j = 0; j < 2; j++) {
-			qDot[2*i + j] = pVector[i]->m_Velocity[j];
-		}
-	}
-
-	//Make Q
-	vector<float>Q = vector<float>(2 * size);
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < 2; j++) {
-			Q[2*i + j] = pVector[i]->m_Force[j];
-		}
-	}
-
-	vector<float>  JDotq = vector<float>(qDot.size());
-	JDotq = VectorMultiplication(JDot, qDot);
-	JDotq = VectorScalarMultiplication(JDotq, -1);
-
+	vector<float>  JDotqDot = vector<float>(qDot.size());
 	vector<float> JWQ = vector<float>(Q.size());
+	JDotqDot = VectorMultiplication(JDot, qDot);
+	JDotqDot = VectorScalarMultiplication(JDotqDot, -1);
 	JWQ = VectorMultiplication(JW, Q);
-
 
 	vector<float> CStrength = vector<float>(constraints.size());
 	vector<float> CDotDamping = vector<float>(constraints.size());
-
-	cout << "qdotsize: " << CStrength.size() << " Q size: " << CDotDamping.size() << endl;
-
 	CStrength = VectorScalarMultiplication(C, ks);
- 	CDotDamping = VectorScalarMultiplication(CDot, kd);
+	CDotDamping = VectorScalarMultiplication(CDot, kd);
 
 	vector<float> JWJTLambda = vector<float>(constraints.size());
-	JWJTLambda = VectorSubtraction(JDotq, JWQ, CStrength, CDotDamping);
+	JWJTLambda = VectorSubtraction(JDotqDot, JWQ);
+	JWJTLambda = VectorSubtraction(JWJTLambda, CStrength);
+	JWJTLambda = VectorSubtraction(JWJTLambda, CDotDamping);
 
 	double* JWJTLambdaDouble = new double[JWJTLambda.size()];
 	for (int i = 0; i < JWJTLambda.size(); i++)
@@ -255,31 +213,23 @@ static void DoConstraint(std::vector<Particle*> pVector, std::vector<Constraint*
 		JWJTLambdaDouble[i] = JWJTLambda[i];
 	}
 
-	//JWJTLambda = -JqDot-JWQ-ksC-kdCDot.
-	//we will find Lambda with the ConjGrad function provided.
-	//JWJT will be our implicitMatrix, and the results will be in lambda
-	implicitMatrix *Mat = new implicitMatrix(&JWJT);
+	implicitMatrix *ImJWJT = new implicitMatrix(&JWJT);
 	double* lambda = new double[constraints.size()];
-	double* r = new double[constraints.size()];
-	int steps = 100;
-	//the moment of calculations
-	ConjGrad(constraints.size(), Mat, lambda, JWJTLambdaDouble, 1e-30f, &steps );
-	
-	//Make lambda into a vector float, for multiplication with JT
-	vector<float>lambdaVF = vector<float>(constraints.size());
-	for (int i = 0; i < constraints.size(); i++){
-		lambdaVF[i] = (float)lambda[i];
-	}
-	//Make Q
-	vector<float>QHat = vector<float>(2 * size);
-	QHat = VectorMultiplication(JT, lambdaVF);
 
-	//Assign forces
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < 2; j++) {
-			pVector[i]->m_Force[j] += QHat[2 * i + j];
-			pVector[i]->m_Velocity[j] += ((pVector[i]->m_Force[j] * 0.1) / pVector[i]->m_mass);
-			pVector[i]->m_Position += pVector[i]->m_Velocity * 0.1;
+	int d = 100;
+	ConjGrad(constraints.size(), ImJWJT, lambda, JWJTLambdaDouble, 1e-30f, &d);
+
+	vector<float>lambdaFloat = vector<float>(constraints.size());
+	for (unsigned i = 0; i < constraints.size(); i++){
+		lambdaFloat[i] = lambda[i];
+	}
+
+	vector<float>Qhat = vector<float>(constraints.size());
+	Qhat = VectorMultiplication(JT, lambdaFloat);
+
+	for (int i = 0; i < pVector.size(); i++) {
+		for (int j = 0; j < n; j++) {
+			pVector[i]->m_Force[j] += Qhat[2 * i + j];
 		}
 	}
 }
