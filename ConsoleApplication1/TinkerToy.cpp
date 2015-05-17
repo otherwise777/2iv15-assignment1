@@ -3,12 +3,14 @@
 #include <iostream>
 using namespace std;
 #include "Gravity.h"
+#include "Wall.h"
 #include <algorithm>
 #include <list>
 #include <Windows.h>
 
 #include "Particle.h"
 #include "SpringForce.h"
+#include "AngularForce.h"
 #include "RodConstraint.h"
 #include "MouseForce.h"
 #include "CircularWireConstraint.h"
@@ -108,6 +110,7 @@ static void init_system(void)
 	//pVector.push_back(new Particle(Vec2f(0.0, -0.1), 1.0f, 2));
 
 	//cloth particles
+	/*
 	float distance = 0.0;
 	float heigthOff = 0.0;
 	float clothDist = 0.2f;
@@ -162,16 +165,31 @@ static void init_system(void)
 
 	for (int i = 0; i < clothWidth; i++)
 	{
-		constraints.push_back(new CircularWireConstraint(pVector[i], Vec2f(0.0, 0.7), 0.4));
+		constraints.push_back(new LineWireConstraint(pVector[i], 0.5));
+	}
+	*/
+	int particleID = 0;
+	pVector.push_back(new Particle(Vec2f(-0.3, 0.5), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, 0.5), 1.0f, particleID++));
+
+	int i, size = pVector.size();
+
+	for (i = 0; i<size; i++)
+	{
+		mouses.push_back(new MouseForce(pVector[i], pVector[i]->m_Velocity, 0.5, 0.5));
 	}
 
-	//forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 3, 2));
-	//forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 3, 2));
-	//constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.2));
-	//constraints.push_back(new RodConstraint(pVector[0], pVector[2], 0.1));
-	//constraints.push_back(new RodConstraint(pVector[0], pVector[1], 0.2));
-	//constraints.push_back(new PointConstraint(pVector[2], Vec2f(0.0, -0.1)));
-	//constraints.push_back(new RodConstraint(pVector[1], pVector[2], 0.4));
+	for (i = 0; i<size; i++)
+	{
+		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
+	}
+
+	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.1, 2.0, 2.0));
+	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.1, 2.0, 2.0));
+	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.3));
+	//forces.push_back(new Wall(pVector, -0.6, dt));
+	forces.push_back(new AngularForce(pVector[0], pVector[1], pVector[2], 90, 0.01, 1.0));
 }
 
 /*

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AngularForce.cpp" />
     <ClCompile Include="CalculateForces.cpp" />
     <ClCompile Include="CircularWireConstraint.cpp" />
     <ClCompile Include="ComputeConstraints.cpp" />
@@ -26,8 +27,10 @@
     <ClCompile Include="Solver.cpp" />
     <ClCompile Include="SpringForce.cpp" />
     <ClCompile Include="TinkerToy.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AngularForce.h" />
     <ClInclude Include="CircularWireConstraint.h" />
     <ClInclude Include="Constraint.h" />
     <ClInclude Include="Force.h" />
@@ -40,6 +43,7 @@
     <ClInclude Include="PointConstraint.h" />
     <ClInclude Include="RodConstraint.h" />
     <ClInclude Include="SpringForce.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Debug\glut32.dll" />
