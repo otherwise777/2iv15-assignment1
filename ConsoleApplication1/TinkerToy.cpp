@@ -154,7 +154,7 @@ static void init_system(void)
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
 	pVector.push_back(new Particle(Vec2f(-0.3, 0.3), 1.0f, 0));
-	pVector.push_back(new Particle(Vec2f(0.0, 0.1), 1.0f, 1));
+	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f, 1));
 	pVector.push_back(new Particle(Vec2f(-0.3, 0.2), 1.0f, 2));
 
 	int i, size = pVector.size();

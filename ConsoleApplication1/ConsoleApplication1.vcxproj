@@ -11,7 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CalculateForces.cpp" />
     <ClCompile Include="CircularWireConstraint.cpp" />
+    <ClCompile Include="ComputeConstraints.cpp" />
     <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="imageio.cpp" />
     <ClCompile Include="linearSolver.cpp" />
@@ -20,6 +22,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PointConstraint.cpp" />
     <ClCompile Include="RodConstraint.cpp" />
+    <ClCompile Include="Schemes.cpp" />
     <ClCompile Include="Solver.cpp" />
     <ClCompile Include="SpringForce.cpp" />
     <ClCompile Include="TinkerToy.cpp" />
