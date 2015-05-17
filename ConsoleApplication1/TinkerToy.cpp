@@ -125,14 +125,14 @@ static void init_system(void)
 		forces.push_back(new Gravity(pVector[i], Vec2f(0.0, -0.0981)));
 	}
 
-	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
+	//forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
 	//constraints.push_back(new LineWireConstraint(pVector[2], 0.0));
 	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.3));
 	//constraints.push_back(new RodConstraint(pVector[0], pVector[1], 0.2));
 	constraints.push_back(new PointConstraint(pVector[2], Vec2f(0.0, -0.1)));
-	constraints.push_back(new RodConstraint(pVector[2], pVector[1], 0.4));
+	constraints.push_back(new RodConstraint(pVector[1], pVector[2], 0.4));
 }
 
 /*
