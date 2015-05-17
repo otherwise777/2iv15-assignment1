@@ -14,6 +14,7 @@ void ApplyForce(std::vector<Force*> forces);
 void Euler(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt);
 void MidPoint(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt);
 void RungeKutta(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt);
+void Verlet(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt);
 
 #define DAMP 0.98f
 #define RAND (((rand()%2000)/1000.f)-1.f)
@@ -40,5 +41,11 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 	{
 		//runge-kutta
 		RungeKutta(forces, constraints, pVector, dt);
+	}
+	else if (solver == 4)
+	{
+		//verlet?
+		//not working yet
+		Verlet(forces, constraints, pVector, dt);
 	}
 }
