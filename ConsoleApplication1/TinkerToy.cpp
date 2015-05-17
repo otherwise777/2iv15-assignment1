@@ -12,6 +12,7 @@ using namespace std;
 #include "RodConstraint.h"
 #include "MouseForce.h"
 #include "CircularWireConstraint.h"
+#include "PointConstraint.h"
 #include "LineWireConstraint.h"
 #include "imageio.h"
 #include "Force.h"
@@ -104,7 +105,7 @@ static void init_system(void)
 	//pVector.push_back(new Particle(Vec2f(0.0, 0.0) + Vec2f(dist, 0.0)));
 	pVector.push_back(new Particle((center - offset), 1.0f, 0));
 	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f, 1));
-	pVector.push_back(new Particle((center + offset), 1.0f, 2));
+	pVector.push_back(new Particle(Vec2f(0.0, -0.1), 1.0f, 2));
 
 	pVector[0]->m_Number = 0;
 	pVector[1]->m_Number = 1;
@@ -127,10 +128,11 @@ static void init_system(void)
 	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
-	constraints.push_back(new LineWireConstraint(pVector[2], 0.0));
+	//constraints.push_back(new LineWireConstraint(pVector[2], 0.0));
 	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.3));
-	constraints.push_back(new RodConstraint(pVector[0], pVector[1], 0.2));
-	//constraints.push_back(new CircularWireConstraint(pVector[2], Vec2f(-0.1, 0.0), 0.5));
+	//constraints.push_back(new RodConstraint(pVector[0], pVector[1], 0.2));
+	constraints.push_back(new PointConstraint(pVector[2], Vec2f(0.0, -0.1)));
+	constraints.push_back(new RodConstraint(pVector[2], pVector[1], 0.4));
 }
 
 /*
