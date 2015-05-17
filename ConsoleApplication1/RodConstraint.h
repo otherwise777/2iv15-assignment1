@@ -1,17 +1,19 @@
 #pragma once
 
 #include "Particle.h"
-#include "Force.h"
+#include "Constraint.h"
 
-class RodConstraint : public Force
+class RodConstraint : public Constraint
 {
  public:
   RodConstraint(Particle *p1, Particle * p2, double dist);
 
   void draw();
-  void apply();
   float getC();
   float getCDot();
+  vector<Vec2f> getJacobian();
+  vector<Vec2f> getJacobianDot();
+  vector<Particle*> getParticles();
 
  private:
 

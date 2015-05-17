@@ -1,15 +1,19 @@
 #pragma once
 
 #include "Particle.h"
-#include "Force.h"
+#include "Constraint.h"
 
-class LineWireConstraint : public Force
+class LineWireConstraint : public Constraint
 {
 public:
 	LineWireConstraint(Particle *p, float height);
 
 	void draw();
-	void apply();
+	float getC();
+	float getCDot();
+	vector<Vec2f> getJacobian();
+	vector<Vec2f> getJacobianDot();
+	vector<Particle*> getParticles();
 
 private:
 

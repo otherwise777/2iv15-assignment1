@@ -19,19 +19,40 @@ void LineWireConstraint::draw()
 	glEnd();
 }
 
-void LineWireConstraint::apply()
-{
-	float m_ks = 2;
-	float m_kd = 1;
+// return the c: C(x, y) = (y - yl)
+float LineWireConstraint::getC(){
+	float C = (m_p->m_Position[1] - m_height);
+	return C;
+}
 
-	float heightdif = (m_p->m_Position[1] - m_height);
-	Vec2f posdif = Vec2f(0.0, heightdif);
-	//Vec2f posdif = (m_p->m_Position - m_center);
-	Vec2f speeddif = (m_p->m_Velocity);
-	float posLength = (sqrt(posdif[0] * posdif[0] + posdif[1] * posdif[1]));
-	float dotProduct = (speeddif[0] * posdif[0] + speeddif[1] * posdif[1]);
+//from the slides C = 1/2(x.x-1) =  (1/2)x.(1/2)x-(1/2)
+//from the slides CDot = (1/2)xDot.(1/2)x + (1/2)x.(1/2)xDot
+//our C = (y - yc)
+//return the C	Dot: (dx/dy)C(x, y) = (y - yc)dx
+//CDot = vy
+float LineWireConstraint::getCDot(){
+	Vec2f veldif = (m_p->m_Velocity);
+	float CDot = (veldif[1]);
+	return CDot;
+}
 
-	Vec2f force_p1 = (posdif / posLength)*((m_ks * (posLength)) + (m_kd * (dotProduct / posLength)));
+vector<Vec2f> LineWireConstraint::getJacobian(){
+	//a vector, only 1 now, might implement multiple particles
+	vector<Vec2f> J;
+	J.push_back(Vec2f(0, 1));
+	return J;
+}
 
-	m_p->m_Velocity -= force_p1;
+//return JDot, if there are more use same order as particle
+vector<Vec2f> LineWireConstraint::getJacobianDot(){
+	vector<Vec2f> JDot;
+	JDot.push_back(Vec2f(0, 0));
+	return JDot;
+}
+
+vector<Particle*> LineWireConstraint::getParticles(){
+	//only 1 here, but might implement ability for more
+	vector<Particle*> result;
+	result.push_back(m_p);
+	return result;
 }
