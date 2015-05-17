@@ -124,8 +124,8 @@ static void init_system(void)
 	forces.push_back(new RodConstraint(pVector[1], pVector[2], 0.2));
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
-	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(0.0, 0.4), 0.1));
-	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.4), 0.1));
+	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(-0.1, 0.0), 0.5));
+	//constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.4), 0.1));
 }
 
 /*
@@ -180,6 +180,11 @@ static void draw_forces ( void )
 	for_each(forces.begin(), forces.end(), [](Force* f)
 	{
 		f->draw();
+	});
+
+	for_each(constraints.begin(), constraints.end(), [](Constraint* c)
+	{
+		c->draw();
 	});
 
 	for_each(mouses.begin(), mouses.end(), [](MouseForce* m)

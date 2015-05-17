@@ -18,6 +18,6 @@ void Gravity::apply()
 {
 	//F = m * a
 	//a = F/m
-	m_p1->m_Force = g * m_p1 -> m_mass;
+	m_p1->m_Force += g * m_p1 -> m_mass;
 	//m_p1->m_Velocity += g*0.1;
 }

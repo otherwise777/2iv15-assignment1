@@ -30,22 +30,84 @@ void vecTimesScalar(int n, double v[], double s)
     v[i] *= s;
 }
 
-vector< vector<float> > VectorMultiplication(vector< vector<float> > A, vector< vector<float> > B)
+vector<vector<float>> VectorMultiplication(vector<vector<float>> A, vector<vector<float>> B)
 {
 	if (A[0].size() != B.size()) 
 	{
 		//the sizes are wrong, just an error message and no break because we assume correct sizes
 		cout << "ERROR!!!!" << endl;
 	}
+
 	vector<vector<float>> Result = vector<vector<float>>(A.size(), vector<float>(B[0].size()));
-	for (int i = 0; i < A.size(); i++) {
-		for (int j = 0; j < B[0].size(); j++) {
+	for (int i = 0; i < A.size(); i++) 
+	{
+		for (int j = 0; j < B[0].size(); j++) 
+		{
 			Result[i][j] = 0;
 			for (int k = 0; k < A[0].size(); k++)
 			{
 				Result[i][j] = Result[i][j] + A[i][k] * B[k][j];
 			}
 		}
+	}
+	return Result;
+}
+
+vector<float> VectorMultiplication(vector< vector<float>> A, vector<float> B)
+{
+	if (A[0].size() != B.size()) 
+	{
+		//only display error message, it can't multiplicate. We assume it won't come here
+		cout << "ERROR!!!!" << endl;
+	}
+
+	vector<float>  Result = vector<float>(A.size());
+	for (int i = 0; i < A.size(); i++) 
+	{
+		Result[i] = 0;
+		for (int k = 0; k < B.size(); k++)
+		{
+			Result[i] = Result[i] + A[i][k] * B[k];
+		}
+	}
+	return Result;
+}
+
+vector<vector<float>> VectorScalarMultiplication(vector<vector<float>> A, float scalar)
+{
+	vector<vector<float>>  Result = vector<vector<float>>(A.size(), vector<float>(A[0].size()));
+	for (int i = 0; i < A.size(); i++)
+	{
+		for (int j = 0; j < A[0].size(); j++)
+		{
+			Result[i][j] = A[i][j] * scalar;
+		}
+	}
+	return Result;
+}
+
+vector<float> VectorScalarMultiplication(vector<float> A, float scalar)
+{
+	vector<float>  Result = vector<float>(A.size());
+	for (int i = 0; i < A.size(); i++)
+	{
+		Result[i] = A[i] * scalar;
+	}
+	return Result;
+}
+
+vector<float> VectorSubtraction(vector<float> A, vector<float> B)
+{
+	if (A.size() != B.size())
+	{
+		//please don't come here ever.
+		cout << "ERROR!!!!" << endl;
+	}
+
+	vector<float> Result = vector<float>(A.size());
+	for (int i = 0; i < A.size(); i++)
+	{
+		Result[i] = A[i] - B[i];
 	}
 	return Result;
 }
@@ -103,7 +165,7 @@ double ConjGrad(int n, implicitMatrix *A, double x[], double b[],
       u = vecDot(n, d, t);
       
       if (u == 0) {
-	printf("(SolveConjGrad) d'Ad = 0\n");
+	//printf("(SolveConjGrad) d'Ad = 0\n");
 	break;
       }
       
