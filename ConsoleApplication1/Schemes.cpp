@@ -105,9 +105,9 @@ std::vector<Vec2f> previousPos;
 void Verlet(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt)
 {
 	//verlet
+	CalculateForces(forces, constraints, pVector);
 	if (previousPos.empty())
 	{
-		CalculateForces(forces, constraints, pVector);
 		for (int i = 0; i < pVector.size(); i++)
 		{
 			pVector[i]->m_Velocity += ((pVector[i]->m_Force * dt) / pVector[i]->m_mass);
@@ -117,7 +117,6 @@ void Verlet(std::vector<Force*> forces, std::vector<Constraint*> constraints, st
 	}
 	else
 	{
-		CalculateForces(forces, constraints, pVector);
 		for (int i = 0; i < pVector.size(); i++)
 		{
 			pVector[i]->m_Position = 2 * pVector[i]->m_Position - previousPos[i] + pVector[i]->m_Force * dt * dt;

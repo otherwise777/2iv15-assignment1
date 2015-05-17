@@ -108,37 +108,24 @@ static void init_system(void)
 	//pVector.push_back(new Particle(Vec2f(0.0, -0.1), 1.0f, 2));
 
 	//cloth particles
+	float distance = 0.0;
+	float heigthOff = 0.0;
+	float clothDist = 0.2f;
+	int clothWidth = 3;
+	int clothHeight = 3;
 	int particleID = 0;
-	pVector.push_back(new Particle(Vec2f(-0.3, 0.5), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(-0.1, 0.5), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.1, 0.5), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.3, 0.5), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.5, 0.5), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.3, 0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(-0.1, 0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.1, 0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.3, 0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.5, 0.3), 1.0f, particleID++));
+	for (int i = 0; i < clothWidth*clothHeight; i++)
+	{
+		if (i % clothWidth == 0)
+		{
+			heigthOff += 0.2;
+			distance = 0.0;
+		}
 
-	pVector.push_back(new Particle(Vec2f(-0.3, 0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(-0.1, 0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.1, 0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.3, 0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.5, 0.1), 1.0f, particleID++));
-
-	pVector.push_back(new Particle(Vec2f(-0.3, -0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(-0.1, -0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.1, -0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.3, -0.1), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.5, -0.1), 1.0f, particleID++));
-
-	pVector.push_back(new Particle(Vec2f(-0.3, -0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(-0.1, -0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.1, -0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.3, -0.3), 1.0f, particleID++));
-	pVector.push_back(new Particle(Vec2f(0.5, -0.3), 1.0f, particleID++));
-
+		pVector.push_back(new Particle(Vec2f(-0.3 + distance, 0.7 - heigthOff), 1.0f, particleID++));
+		distance += 0.2;
+	}
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
 
@@ -157,9 +144,6 @@ static void init_system(void)
 	//cloth forces
 	int ks = 5;
 	int kd = 3;
-	float clothDist = 0.2f;
-	int clothWidth = 5;
-	int clothHeight = 5;
 
 	//forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
 	for (int i = 0; i < (clothWidth*clothHeight)-clothWidth; i++)
@@ -195,6 +179,7 @@ static void init_system(void)
 OpenGL specific drawing routines
 ----------------------------------------------------------------------
 */
+
 
 static void pre_display ( void )
 {
