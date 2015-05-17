@@ -100,3 +100,35 @@ void RungeKutta(std::vector<Force*> forces, std::vector<Constraint*> constraints
 		pVector[i]->m_Position = posTemp[i] + (dt / 6)*(k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
 	}
 }
+
+std::vector<Vec2f> previousPos;
+void Verlet(std::vector<Force*> forces, std::vector<Constraint*> constraints, std::vector<Particle*> pVector, float dt)
+{
+	//verlet
+	if (previousPos.empty())
+	{
+		CalculateForces(forces, constraints, pVector);
+		for (int i = 0; i < pVector.size(); i++)
+		{
+			pVector[i]->m_Velocity += ((pVector[i]->m_Force * dt) / pVector[i]->m_mass);
+			pVector[i]->m_Position += pVector[i]->m_Velocity * dt + 0.5 * pVector[i]->m_Force * dt * dt;
+			//pVector[i]->m_Velocity = DAMP*pVector[i]->m_Velocity + Vec2f(RAND, RAND) * 0.005;
+		}
+	}
+	else
+	{
+		CalculateForces(forces, constraints, pVector);
+		for (int i = 0; i < pVector.size(); i++)
+		{
+			pVector[i]->m_Position = 2 * pVector[i]->m_Position - previousPos[i] + pVector[i]->m_Force * dt * dt;
+		}
+	}
+
+	previousPos.clear();
+	//save previous position
+	for (int i = 0; i < pVector.size(); i++)
+	{
+		previousPos.push_back(pVector[i]->m_Position);
+	}
+	
+}

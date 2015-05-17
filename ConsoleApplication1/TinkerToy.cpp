@@ -108,54 +108,39 @@ static void init_system(void)
 	//pVector.push_back(new Particle(Vec2f(0.0, -0.1), 1.0f, 2));
 
 	//cloth particles
-	/*
-	pVector.push_back(new Particle(Vec2f(-0.6, 0.5), 1.0f, 0));
-	pVector.push_back(new Particle(Vec2f(-0.4, 0.5), 1.0f, 1));
-	pVector.push_back(new Particle(Vec2f(-0.2, 0.5), 1.0f, 2));
-	pVector.push_back(new Particle(Vec2f(-0.0, 0.5), 1.0f, 3));
-	pVector.push_back(new Particle(Vec2f(0.2, 0.5), 1.0f, 4));
-	pVector.push_back(new Particle(Vec2f(0.4, 0.5), 1.0f, 5));
+	int particleID = 0;
+	pVector.push_back(new Particle(Vec2f(-0.3, 0.5), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(-0.1, 0.5), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.1, 0.5), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, 0.5), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.5, 0.5), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.6, 0.3), 1.0f, 6));
-	pVector.push_back(new Particle(Vec2f(-0.4, 0.3), 1.0f, 7));
-	pVector.push_back(new Particle(Vec2f(-0.2, 0.3), 1.0f, 8));
-	pVector.push_back(new Particle(Vec2f(-0.0, 0.3), 1.0f, 9));
-	pVector.push_back(new Particle(Vec2f(0.2, 0.3), 1.0f, 10));
-	pVector.push_back(new Particle(Vec2f(0.4, 0.3), 1.0f, 11));
+	pVector.push_back(new Particle(Vec2f(-0.3, 0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(-0.1, 0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.1, 0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, 0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.5, 0.3), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.6, 0.1), 1.0f, 12));
-	pVector.push_back(new Particle(Vec2f(-0.4, 0.1), 1.0f, 13));
-	pVector.push_back(new Particle(Vec2f(-0.2, 0.1), 1.0f, 14));
-	pVector.push_back(new Particle(Vec2f(-0.0, 0.1), 1.0f, 15));
-	pVector.push_back(new Particle(Vec2f(0.2, 0.1), 1.0f, 16));
-	pVector.push_back(new Particle(Vec2f(0.4, 0.1), 1.0f, 17));
+	pVector.push_back(new Particle(Vec2f(-0.3, 0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(-0.1, 0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.1, 0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, 0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.5, 0.1), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.6, -0.1), 1.0f, 18));
-	pVector.push_back(new Particle(Vec2f(-0.4, -0.1), 1.0f, 19));
-	pVector.push_back(new Particle(Vec2f(-0.2, -0.1), 1.0f, 20));
-	pVector.push_back(new Particle(Vec2f(-0.0, -0.1), 1.0f, 21));
-	pVector.push_back(new Particle(Vec2f(0.2, -0.1), 1.0f, 22));
-	pVector.push_back(new Particle(Vec2f(0.4, -0.1), 1.0f, 23));
+	pVector.push_back(new Particle(Vec2f(-0.3, -0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(-0.1, -0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.1, -0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, -0.1), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.5, -0.1), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.6, -0.3), 1.0f, 24));
-	pVector.push_back(new Particle(Vec2f(-0.4, -0.3), 1.0f, 25));
-	pVector.push_back(new Particle(Vec2f(-0.2, -0.3), 1.0f, 26));
-	pVector.push_back(new Particle(Vec2f(-0.0, -0.3), 1.0f, 27));
-	pVector.push_back(new Particle(Vec2f(0.2, -0.3), 1.0f, 28));
-	pVector.push_back(new Particle(Vec2f(0.4, -0.3), 1.0f, 29));
+	pVector.push_back(new Particle(Vec2f(-0.3, -0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(-0.1, -0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.1, -0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.3, -0.3), 1.0f, particleID++));
+	pVector.push_back(new Particle(Vec2f(0.5, -0.3), 1.0f, particleID++));
 
-	pVector.push_back(new Particle(Vec2f(-0.6, -0.5), 1.0f, 30));
-	pVector.push_back(new Particle(Vec2f(-0.4, -0.5), 1.0f, 31));
-	pVector.push_back(new Particle(Vec2f(-0.2, -0.5), 1.0f, 32));
-	pVector.push_back(new Particle(Vec2f(-0.0, -0.5), 1.0f, 33));
-	pVector.push_back(new Particle(Vec2f(0.2, -0.5), 1.0f, 34));
-	pVector.push_back(new Particle(Vec2f(0.4, -0.5), 1.0f, 35));
-	*/
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
-	pVector.push_back(new Particle(Vec2f(-0.3, 0.3), 1.0f, 0));
-	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f, 1));
-	pVector.push_back(new Particle(Vec2f(-0.3, 0.2), 1.0f, 2));
 
 	int i, size = pVector.size();
 
@@ -170,37 +155,36 @@ static void init_system(void)
 	}
 
 	//cloth forces
-	/*
 	int ks = 5;
 	int kd = 3;
 	float clothDist = 0.2f;
+	int clothWidth = 5;
+	int clothHeight = 5;
 
 	//forces.push_back(new SpringForce(pVector[1], pVector[2], 0.05, 3, 1));
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < (clothWidth*clothHeight)-clothWidth; i++)
 	{
-		forces.push_back(new SpringForce(pVector[i], pVector[i+6], clothDist, ks, kd));
+		//constraints.push_back(new RodConstraint(pVector[i], pVector[i + clothWidth], clothDist));
+		forces.push_back(new SpringForce(pVector[i], pVector[i+clothWidth], clothDist, ks, kd));
 	}
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < clothHeight; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < clothWidth-1; j++)
 		{
-			forces.push_back(new SpringForce(pVector[j + (6 * i)], pVector[j + (6 * i) + 1], clothDist, ks, kd));
+			forces.push_back(new SpringForce(pVector[j + (clothWidth * i)], pVector[j + (clothWidth * i) + 1], clothDist, ks, kd));
 		}
 	}
-	*/
 	//cloth constraints.
-	/*
-	constraints.push_back(new LineWireConstraint(pVector[0], 0.5));
-	constraints.push_back(new LineWireConstraint(pVector[1], 0.5));
-	constraints.push_back(new LineWireConstraint(pVector[2], 0.5));
-	constraints.push_back(new LineWireConstraint(pVector[3], 0.5));
-	constraints.push_back(new LineWireConstraint(pVector[4], 0.5));
-	constraints.push_back(new LineWireConstraint(pVector[5], 0.5));
-	*/
-	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 3, 2));
-	forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 3, 2));
-	constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.2));
-	constraints.push_back(new RodConstraint(pVector[0], pVector[2], 0.1));
+
+	for (int i = 0; i < clothWidth; i++)
+	{
+		constraints.push_back(new CircularWireConstraint(pVector[i], Vec2f(0.0, 0.7), 0.4));
+	}
+
+	//forces.push_back(new SpringForce(pVector[0], pVector[1], 0.2, 3, 2));
+	//forces.push_back(new SpringForce(pVector[1], pVector[2], 0.2, 3, 2));
+	//constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.0), 0.2));
+	//constraints.push_back(new RodConstraint(pVector[0], pVector[2], 0.1));
 	//constraints.push_back(new RodConstraint(pVector[0], pVector[1], 0.2));
 	//constraints.push_back(new PointConstraint(pVector[2], Vec2f(0.0, -0.1)));
 	//constraints.push_back(new RodConstraint(pVector[1], pVector[2], 0.4));
@@ -378,6 +362,10 @@ static void key_func ( unsigned char key, int x, int y )
 
 	case '3':
 		solverMethod = 3;
+		break;
+
+	case '4':
+		solverMethod = 4;
 		break;
 
 	case 'c':

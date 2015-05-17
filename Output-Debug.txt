@@ -1,0 +1,58 @@
+﻿'ConsoleApplication1.exe' (Win32): Loaded 'D:\Documents\GitHub\2iv15-assignment1\Debug\ConsoleApplication1.exe'. Symbols loaded.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntdll.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\KernelBase.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sysfer.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\ProgramData\Symantec\Symantec Endpoint Protection\12.1.2015.2015.105\Data\Definitions\BASHDefs\20150504.013\UMEngx86.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'D:\Documents\GitHub\2iv15-assignment1\Debug\glut32.dll'. Module was built without symbols.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\user32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\gdi32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\lpk.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\usp10.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcrt.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\advapi32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sechost.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\rpcrt4.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sspicli.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\cryptbase.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winmm.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\glu32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\opengl32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ddraw.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\dciman32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\setupapi.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\cfgmgr32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\oleaut32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ole32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\devobj.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\dwmapi.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'D:\Documents\GitHub\2iv15-assignment1\Debug\libpng16.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcr110d.dll'. Symbols loaded.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp120d.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcr120d.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\imm32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msctf.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\uxtheme.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\atiglpxx.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\atioglxx.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\version.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\atigktxx.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\aticfx32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\atiadlxy.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\shell32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\shlwapi.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\userenv.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\profapi.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\wtsapi32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\psapi.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\wintrust.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\crypt32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msasn1.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\atigktxx.dll'
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\atigktxx.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Program Files\WIDCOMM\Bluetooth Software\syswow64\BtMmHook.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ole32.dll'. Cannot find or open the PDB file.
+'ConsoleApplication1.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\ole32.dll'
+The thread 0x2ee8 has exited with code 0 (0x0).
+The thread 0x2bbc has exited with code 0 (0x0).
+The program '[12268] ConsoleApplication1.exe' has exited with code 0 (0x0).
