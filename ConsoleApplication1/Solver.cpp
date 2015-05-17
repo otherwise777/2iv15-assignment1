@@ -62,6 +62,7 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 		for (int i = 0; i < forces.size(); i++) {
 			forces[i]->apply();
 		}
+		DoConstraint(pVector, constraints);
 		//use midpoint forces on the original position
 		for (i = 0; i < size; i++)
 		{
@@ -76,6 +77,7 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 		std::vector<Vec2f> k2;
 		std::vector<Vec2f> k3;
 		std::vector<Vec2f> k4;
+
 
 		//save original position and initialize the 4 k's
 		for (i = 0; i < size; i++)
@@ -123,6 +125,7 @@ void simulation_step(std::vector<Particle*> pVector, std::vector<Force*> forces,
 		for (int i = 0; i < forces.size(); i++) {
 			forces[i]->apply();
 		}
+		DoConstraint(pVector, constraints);
 		//save k4 and use it to calculate the actual position
 		for (i = 0; i < size; i++)
 		{
