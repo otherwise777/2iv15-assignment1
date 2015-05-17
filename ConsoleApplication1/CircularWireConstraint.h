@@ -13,9 +13,9 @@ class CircularWireConstraint : public Constraint
   void draw();
   float getC();
   float getCDot();
-  vector<Vec2f> getJacobian();
-  vector<Vec2f> getJacobianDot();
-  std::vector<Particle*> getParticles();
+  vector<Vec2f> getJ();
+  vector<Vec2f> getJdot();
+  std::vector<Particle> getParticles();
  private:
 
   Particle * const m_p;

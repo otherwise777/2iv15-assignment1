@@ -106,6 +106,9 @@ static void init_system(void)
 	pVector.push_back(new Particle(Vec2f(0.0, 0.2), 1.0f, 1));
 	pVector.push_back(new Particle((center + offset), 1.0f, 2));
 
+	pVector[0]->m_Number = 0;
+	pVector[1]->m_Number = 1;
+	pVector[2]->m_Number = 2;
 	// You shoud replace these with a vector generalized forces and one of
 	// constraints...
 
@@ -125,7 +128,7 @@ static void init_system(void)
 	forces.push_back(new SpringForce(pVector[0], pVector[1], 0.05, 3, 1));
 
 	constraints.push_back(new CircularWireConstraint(pVector[0], Vec2f(-0.1, 0.0), 0.5));
-	//constraints.push_back(new CircularWireConstraint(pVector[1], Vec2f(0.0, 0.4), 0.1));
+	constraints.push_back(new CircularWireConstraint(pVector[2], Vec2f(-0.1, 0.0), 0.5));
 }
 
 /*

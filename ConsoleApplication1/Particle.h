@@ -17,6 +17,8 @@ public:
 	Vec2f m_Position;
 	Vec2f m_Velocity;
 	Vec2f m_Force;
+	Vec2f m_ForceConstraint;
 	float m_mass;
+	int m_Number;
 	int m_ID;
 };

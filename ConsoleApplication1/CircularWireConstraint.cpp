@@ -45,24 +45,22 @@ float CircularWireConstraint::getCDot(){
 	return dotProduct;
 }
 
-//J = (dC/dx), (dC/dy)
-vector<Vec2f> CircularWireConstraint::getJacobian(){
+//return J, if there are more use same order as particle
+vector<Vec2f> CircularWireConstraint::getJ(){
 	vector<Vec2f> result;
-	Vec2f xVector = (m_p->m_Position - m_center);
-	Vec2f veldif = (m_p->m_Velocity);
-	result.push_back({ 2 * (xVector[0]*veldif[0]), 2 * (xVector[1]*veldif[1]) });
+	result.push_back(Vec2f(2 * (m_p->m_Position[0] - m_center[0]), 2 * (m_p->m_Position[1] - m_center[1])));
 	return result;
 }
 
-vector<Vec2f> CircularWireConstraint::getJacobianDot(){
+//return Jdot, if there are more use same order as particle
+vector<Vec2f> CircularWireConstraint::getJdot(){
 	vector<Vec2f> result;
-	Vec2f veldif = (m_p->m_Velocity);
-	result.push_back({ 2 * veldif[0], 2 * veldif[1] });
+	result.push_back(Vec2f(2 * m_p->m_Velocity[0], 2 * m_p->m_Velocity[1]));
 	return result;
 }
 
-vector<Particle*> CircularWireConstraint::getParticles(){
-	vector<Particle*> result;
-	result.push_back(m_p);
+vector<Particle> CircularWireConstraint::getParticles(){
+	vector<Particle> result;
+	result.push_back(*m_p);
 	return result;
 }
